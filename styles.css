@@ -213,6 +213,24 @@ a:hover {
   background: #ff4a3d;
 }
 
+.link {
+  pointer-events: all; /* Ensure the link is clickable */
+  position: relative; /* Ensure it's not hidden behind other elements */
+  z-index: 1; /* Bring it to the front if needed */
+  text-decoration: none; /* Optional: Remove underline */
+  color: #fff; /* Optional: Inherit text color */
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #ff6f61;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.link:hover {
+  background: #ff4a3d;
+}
+
 /* Modal Styling */
 .modal {
   display: none; /* Hidden by default */

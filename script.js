@@ -40,6 +40,10 @@ window.addEventListener('scroll', function () {
   }
 });
 
+document.querySelector('.link').addEventListener('click', function(event) {
+  // Allow the link to work as expected
+});
+
 
 // Open modal when "View Details" is clicked
 document.querySelectorAll('.project-link').forEach(link => {
