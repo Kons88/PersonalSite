@@ -87,10 +87,10 @@
           <div class="project-card">
             <div class="project-icon">
               <div class="project-flair">Portfolio • Ratios • Python</div>
-              <i class="fas fa-network-wired"></i>
+              <i class="fas fa-coins"></i>
             </div>
             <h3>Comparative Analysis of Performance Ratios for Optimal Portfolio Selection</h3>
-            <p>This program explores various portfolio optimization strategies, as well as, performing comparative analysis on performance ratios.</p>
+            <p>Optimal portfolio selection is explored through various strategies, with a comparative analysis of their performance ratios.</p>
             <a href="#" class="project-link" data-modal="modal4">View Details</a>
           </div>
 
@@ -483,19 +483,6 @@
         <h3>Abstract</h3>
         <p>This project is still under construction. :)</p>
 
-        <h3>Introduction</h3>
-        <p>Binary distance measures are widely used in clustering and classification tasks. This project explores the use of Jaccard and Hamming similarity measures.</p>
-
-        <h3>Methodology</h3>
-        <p>The algorithm takes a binary matrix as input and computes distances using Jaccard and Hamming similarity measures.</p>
-        <img src="binary_methodology.png" alt="Methodology Diagram" class="article-image">
-
-        <h3>Results</h3>
-        <p>The algorithm successfully calculates distances and can be used for clustering and classification tasks. The results were validated using synthetic datasets.</p>
-        <img src="binary_results.png" alt="Results Graph" class="article-image">
-
-        <h3>Conclusion</h3>
-        <p>This project provides a robust implementation of binary distance measures in R. Future work could extend the algorithm to handle larger datasets.</p>
       </div>
       <div class="modal-footer">
         <a href="QuantFolio.zip" download class="download-button">Download Code</a>
@@ -510,20 +497,267 @@
       <div class="modal-body">
         <h3>Abstract</h3>
         <p>This project involves calculating binary distances between rows or columns of a matrix using similarity-dissimilarity measures. It is implemented in R.</p>
+        <br>
 
         <h3>Introduction</h3>
-        <p>Binary distance measures are widely used in clustering and classification tasks. This project explores the use of Jaccard and Hamming similarity measures.</p>
+        <p>Binary distance measures are widely used in clustering and classification tasks. This project explores the use of 48 similarity measures.</p>
+        <br>
 
         <h3>Methodology</h3>
-        <p>The algorithm takes a binary matrix as input and computes distances using Jaccard and Hamming similarity measures.</p>
-        <img src="binary_methodology.png" alt="Methodology Diagram" class="article-image">
+        <p>Should we want to compare two objects 𝑈 and 𝑉 as far as their similarity is concerned, then in the binary case there are only four possible outcomes, which are presented in the table below: </p>
 
-        <h3>Results</h3>
-        <p>The algorithm successfully calculates distances and can be used for clustering and classification tasks. The results were validated using synthetic datasets.</p>
-        <img src="binary_results.png" alt="Results Graph" class="article-image">
+        <p><u><i>Table 1: A 2x2 Contingency Table</i></u>:</p>
+        <table style="width: 50%; border-collapse: collapse; margin: 20px auto; font-family: sans-serif;">
+          <thead>
+            <tr>
+              <th rowspan="2" style="padding: 10px; border: 1px solid #ddd; text-align: center; vertical-align: middle;">Object V</th>
+              <th colspan="3" style="padding: 10px; border: 1px solid #ddd; text-align: center;">Object U</th>
+            </tr>
+            <tr>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">1</th>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">0</th>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">1</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">a</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">b</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">a + b</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">0</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">c</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">d</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">c + d</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold;">Total</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold;">a + c</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold;">b + d</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold;">a + b + c + d</td>
+            </tr>
+          </tbody>
+        </table>
 
-        <h3>Conclusion</h3>
-        <p>This project provides a robust implementation of binary distance measures in R. Future work could extend the algorithm to handle larger datasets.</p>
+        <p>What we can say about these two objects is how similar or dissimilar they are. If they share the same number of ones and similar to each other, if however they do not, then these two objects are characterized as dissimilar. Here are some similarity measures that use the table above (Seung-Seok Choi, Sung-Hyuk Cha, Charles C. Tappert, 2009):</p>
+
+        <p><u><i>Table 2: Similarity-Dissimilarity Measures</i></u>:</p>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px auto; font-family: sans-serif;">
+          <thead>
+            <tr>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Similarity Measure</th>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Formula</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Jaccard or Tanimoto</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{a + b + c}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sorensen-Dice or Czekanowski or Nei & Li</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{2a}{2a + b + c}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">3W-Jaccard</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{3a}{3a + b + c}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Simple Matching or Sokal & Michener</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a + d}{a + b + c + d}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sokal & Sneath I</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{a + 2(b + c)}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sokal & Sneath II</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{2(a + d)}{2a + b + c + 2d}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sokal & Sneath III</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a + d}{b + c}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sokal & Sneath IV</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{1}{4}(\frac{a}{a+b}+\frac{a}{a+c}+\frac{d}{b+d}+\frac{d}{c+d})$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sokal & Sneath V or Ochiai II</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{ad}{\sqrt{(a + b)(a + c)(b + d)(c + d)}}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Rogers & Tanimoto</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a + d}{a + 2(b + c) + d}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Faith</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a + 0.5d}{a + b + c + d}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Gower & Legendre</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a + d}{a + 0.5(b + c) + d}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Russell & Rao</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{a + b + c + d}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Ochiai I or Cosine or Otsuka-Ochiai or Fowlkes-Mallows Index</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{\sqrt{(a + b)(a + c)}}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Forbes I</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{na}{(a + b)(a + c)}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Forbes II</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{na - (a + b)(a + c)}{n[\min(a + b, a + c) - (a + b)(a + c)]}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Fossum</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{n(a - 0.5)^2}{(a + b)(a + c)}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Sorgenfrei</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a^2}{(a + b)(a + c)}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Mountford</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{0.5(ab + ac) + bc}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">McConnaughey</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a^2 - bc}{(a + b)(a + c)}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Tarwid</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{na - (a + b)(a + c)}{na + (a + b)(a + c)}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Kulczynski I</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{b + c}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Kulczynski II or Driver & Kroeber</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{1}{2}\left(\frac{a}{a + b} + \frac{a}{a + c}\right)$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Johnson</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{a + b} + \frac{a}{a + c}$$</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Dennis</td>
+              <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{ad - bc}{\sqrt{n(a + b)(a + c)}}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Simpson or Szymkiewicz-Simpson</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{\min(a + b, a + c)}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Braun-Blanquet</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{\max(a + b, a + c)}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Fager & McGowan</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a}{\sqrt{(a + b)(a + c)}} - \frac{\max(a + b, a + c)}{2}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Gower</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a + d}{\sqrt{(a + b)(a + c)(b + d)(c + d)}}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Pearson I</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{n(ad - bc)^2}{(a + b)(a + c)(b + d)(c + d)}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Pearson II</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\sqrt{\frac{\frac{n(ad - bc)^2}{(a + b)(a + c)(b + d)(c + d)}}{n+\frac{n(ad - bc)^2}{(a + b)(a + c)(b + d)(c + d)}}}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Pearson III</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\sqrt{\frac{\frac{ad - bc}{\sqrt{(a + b)(a + c)(b + d)(c + d)}}}{n+\frac{ad - bc}{\sqrt{(a + b)(a + c)(b + d)(c + d)}}}}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Pearson & Heron I</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{ad - bc}{\sqrt{(a + b)(a + c)(b + d)(c + d)}}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Pearson & Heron II</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\cos{(\frac{\pi\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}})}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Cole</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{\sqrt{2}(ad - bc)}{\sqrt{(ad - bc)^2 - (a + b)(a + c)(b + d)(c + d)}}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Stiles</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\log_{10}(\frac{n(|ad - bc| - n/2)^2}{ \sqrt{(a + b)(a + c)(b + d)(c + d)}})$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Yule’s Q</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{ad - bc}{ad + bc}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Yule’s ω or Yule’s Y</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{\sqrt{ad} - \sqrt{bc}}{\sqrt{ad} + \sqrt{bc}}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Dispersion</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{ad - bc}{(a + b + c + d)^2}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Hamann</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{(a + d) - (b + c)}{a + b + c + d}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">McEwen & Michael</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{4(ad - bc)}{(a + d)^2 + (b + c)^2}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Goodman & Kruskal’s Lambda</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{\sigma - \sigma'}{2n - \sigma'} \; with: \; \sigma = \max(a, b) + \max(a, c) + \max(b, d) + \max(c, d) \sigma' = \max(a + c, b + d) + \max(a + b, c + d)$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Anderberg</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{\sigma - \sigma'}{2n} \; with: \; \sigma = \max(a, b) + \max(a, c) + \max(b, d) + \max(c, d) \sigma' = \max(a + c, b + d) + \max(a + b, c + d)$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Baroni-Urbani & Buser I</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{\sqrt{ad} + a}{\sqrt{ad} + a + b + c}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Baroni-Urbani & Buser II</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{\sqrt{ad} + a - (b + c)}{\sqrt{ad} + a + b + c}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Peirce</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{ad - bc}{(a + b)(c + d)}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Eyraud</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{a - (a + b)(a + c)}{(a + b)(a + c)(b + d)(c + d)}$$</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">Tarantula</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">$$\frac{\frac{a}{a + b}}{\frac{a}{a + b} + \frac{c}{c + d}}$$</td>
+            </tr>
+        </table>
+
+        <p>The distance is calculated in the following manner:</p>
+        $$ Distance = 1-Similarity \; Measure $$
+
+        <p>How one picks a suitable distance depends on how they want to treat the zero-zero similarity matches (or 𝑑 in the table above), as well as the dissimilarities between the objects (meaning 𝑏 and 𝑐 in the table above).</p>
+        <br>
+
+        <h2>References</h2>
+        <p>Choi, Seung-Seok, Sung-Hyuk Cha, and Charles C. Tappert. (2010). <em>A Survey of Binary Similarity and Distance Measures</em>. Journal on Systemics, Cybernetics and Informatics, 8>, 43–48.</p>
+        <p>Hubálek, Zdenek. (2008). <em>Coefficients of association and similarity, based on binary (presence-absence) data: an evaluation</em>. Biological Reviews, 57(4), 669–689. https://doi.org/10.1111/j.1469-185X.1982.tb00376.x</p>
+        <p>Peirce, Charles S. (1884). <em>The numerical measure of the success of predictions</em>. Science, 4(93), 453–454. https://doi.org/10.1126/science.ns-4.93.453-a</p>
+        <p>Jones, James A., & Harrold, Mary Jean. (2005). <em>Empirical evaluation of the tarantula automatic fault localization technique</em>. In *ASE '05 Proceedings of the 20th IEEE/ACM international Conference on Automated software engineering* (pp. 273–282). ACM. https://doi.org/10.1145/1101908.1101949</p>
+
       </div>
       <div class="modal-footer">
         <a href="binary_distances_code.zip" download class="download-button">Download Code</a>
