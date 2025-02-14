@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konstantinos Kirillov</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Add Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <header>
+    <!-- Background Video -->
+    <div id="head" class="header-background">
+      <video autoplay muted loop playsinline>
+        <source src="slowdarkwaves.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Header Content (Name and Navigation) -->
+    <div class="header-content">
+      <!-- Top Left: Name -->
+      <div class="top-left">
+        <h2><a href="#head">Konstantinos Kirillov</a></h2>
+      </div>
+
+      <!-- Top Right: Navigation -->
+      <nav class="top-right">
+        <ul>
+          <li><a href="cv.html">CV</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Minimalistic Message (Centered in the video) -->
+    <div class="video-message">
+      <h1>Data, Code and Everything in Between</h1>
+      <!-- Scroll Button -->
+      <a href="#projects" class="scroll-button">VIEW MY WORK</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2>Projects</h2>
+        <div class="project-grid">
+          <!-- Project 1 -->
+          <div class="project-card">
+            <div class="project-icon">
+              <div class="project-flair">Bayes • R • WinBUGS</div>
+              <i class="fas fa-wine-glass-alt"></i>
+            </div>
+            <h3>Choosing the Best Physiochemical Properties in a Strain of Red Wine</h3>
+            <p>A study applying Variable Selection on Multinomial Logistic Regression through Bayesian Adaptive Sampling.</p>
+            <a href="#" class="project-link" data-modal="modal1">View Details</a>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card">
+            <div class="project-icon">
+              <div class="project-flair">Web-Scraping • R</div>
+              <i class="fab fa-linkedin"></i>
+            </div>
+            <h3>Web-Scraping for LinkedIn</h3>
+            <p>A web-scraping pipeline in R, which aims to systematically extract, process, and analyze keyword frequencies from LinkedIn job postings, enabling the identification of emerging trends and the most sought-after statistical software in the job market.</p>
+            <a href="#" class="project-link" data-modal="modal2">View Details</a>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card">
+            <div class="project-icon">
+              <div class="project-flair">NLP • ML • Python</div>
+              <i class="fab fa-twitter"></i>
+            </div>
+            <h3>Classifying Disaster Tweets</h3>
+            <p>An application, which combines Natural Language Processing (NLP) and Machine Learning (ML), in order to determine whether a tweet refers to a real disaster or not.</p>
+            <a href="#" class="project-link" data-modal="modal3">View Details</a>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-network-wired"></i>
+            </div>
+            <h3>Web-Scraping for LinkedIn</h3>
+            <p>A web scraping technique in R to analyze keyword frequency on LinkedIn.</p>
+            <a href="#" class="project-link" data-modal="modal4">View Details</a>
+          </div>
+
+          <!-- Project 5 -->
+          <div class="project-card">
+            <div class="project-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3>Binary Distances Through Similarity-Dissimilarity Measures</h3>
+            <p>An algorithm in R that calculates binary distances between lines or columns of a matrix.</p>
+            <a href="#" class="project-link" data-modal="modal5">View Details</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modals for Project Details -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Choosing the Best Physiochemical Properties in a Strain of Red Wine</h2>
+      <div class="modal-body">
+        <h2>Abstract</h2>
+        <p>This paper explores the application of Bayesian statistical methods in identifying the most influential physiochemical properties of red "Vinho Verde" wine. Using a dataset comprising 1599 observations and 11 physiochemical characteristics, we employ a multinomial logistic regression model with Bayesian variable selection techniques to determine the optimal combination of properties that contribute to higher wine quality scores. The results reveal that alcohol content, sulphates, and free sulfur dioxide have a significant positive impact on wine quality, whereas volatile acidity, chlorides, and total sulfur dioxide are negatively correlated with quality.</p>
+        <br />
+
+        <h2>1. Introduction</h2>
+        <p>The wine industry has long been driven by subjective evaluations of quality, yet statistical methods can provide objective insights into the factors that influence taste and consumer preference. "Vinho Verde," a traditional wine from northwestern Portugal, is produced in various red and white strains, with some being more commercially successful than others. This study aims to determine the key physiochemical properties that contribute to higher-rated red "Vinho Verde" wines and use this knowledge to optimize wine production.</p>
+        <br>
+
+        <h2>2. Data and Methods</h2>
+
+        <h3>2.1 Data Description</h3>
+        <p>The dataset used in this analysis consists of 1599 samples of red "Vinho Verde" wine. The first 11 variables represent objective physiochemical properties, including acidity, residual sugar, sulfur dioxide content, and alcohol percentage. The 12th variable is a sensory rating provided by wine experts, ranging from 3 to 8.</p>
+
+        <h3>2.2 Bayesian Multinomial Logistic Regression</h3>
+        <p>Given the categorical nature of the response variable, we employ a multinomial logistic regression model. Bayesian inference is implemented to account for uncertainty in parameter estimation. We use low-information priors on regression coefficients and apply variable selection methods such as the Bayesian Information Criterion (BIC), empirical Bayes, and hyper-g priors.</p>
+        <br>
+
+        <h3>2.3 Model Specification</h3>
+        <p>The model assumes that the probability of a wine receiving a particular score follows a multinomial (categorical) distribution:</p>
+        $$ y_i \sim Multinomal(p_{i,x}) $$
+        <p>for \(i=1599\), our number of observations and \(x=1:6\), the different categories scores (3-8). In this model, our reference category will be 6, which was altered in R to be the most frequent category (the one that had the most observations). Thus, for observation \(i\), the probability \(p_{ik}\)​ of belonging to category \(k\) (vs. reference \(K=6\)) is:
+        $$ ln(\frac{p_{ik}}{p_{iK}}) = \beta_{k0} + \sum_{j=1}^{11}\beta_{kj} \cdot Z_{ij}, \qquad k=1,...,5, $$</p>
+
+        <p>where \(Z_{ij}\) are standardized predictors. BAS iteratively samples models from the posterior \(p(\gamma∣y)\), prioritizing those with high marginal likelihoods.</p>
+        <p><u><i>Marginal Likelihood Computation:</i></u></p>
+        <p>For a model \(\gamma\), the marginal likelihood integrates out \(\beta\):</p>
+        $$ p(y|\gamma) = \int p(y|\beta, \gamma) \cdot p(\beta|gamma)d\beta  $$
+        <p>Under the g-prior, this is analytically tractable:</p>
+        $$ p(y|\gamma) \varpropto (1+g)^{\frac{p_\gamma}{2}}[1+\frac{g}{1+g}\cdot SSR_\gamma]^{-\frac{n}{2}} $$
+        <p>where \(SSR_\gamma\)​ is the sum of squared residuals for model \(\gamma\).</p>
+        <br>
+
+
+        <h3>2.3.1 Coefficient-Level Priors</h3>
+        <p><u><i>a. Low-Information Priors (Baseline Model):</i></u><p>
+        <p>For initial exploration, weakly informative Gaussian priors were assigned:</p>
+        $$ \beta_{kj} \sim \mathcal{N}(0, \sigma^2 = 10^4) $$
+        <p>where \(\sigma^2 = 10^4\) reflects minimal prior knowledge, allowing the likelihood to dominate posterior inference. These priors are mathematically convenient but risk overfitting in high-dimensional settings.</p>
+
+        <p><u><i>b. Zellner’s g-Prior:</i></u><p>
+        <p>For structured shrinkage, Zellner’s g-prior was applied:</p>
+        $$ \beta_{kj}|g \sim \mathcal{N}(0, g \cdot (X^TX)^{-1} \cdot \sigma^2), $$
+        <p>where \(g>0\) controls shrinkage strength. This prior scales coefficients by the Fisher information matrix \((X^TX)^{-1}\).</p>
+
+        <p><u><i>c. Hyper-g Prior (Liang et al., 2008):</i></u><p>
+        <p>To address \(g\) sensitivity, the hyper-g prior treats \(g\) as random with a Beta prime hyperprior:</p>
+        $$ \frac{g}{1+g} \sim Beta(1, \frac{a}{2}-1), \qquad where \; a=3 \; (default). $$
+        <p>Rewriting \(g=\frac{w}{1-w}\)​ with \(w \sim Beta(1,b)\), this induces a heavy-tailed prior on \(\beta_{jk}\)​:</p>
+        $$ \beta_{jk} \sim \mathcal{N}(0, \frac{w}{1-w} \cdot (X^TX)^{-1} \cdot \sigma^2). $$
+
+        <p><u><i>d. BIC Approximation:</i></u><p>
+        <p>The BIC-approximated prior imposes a "unit information" penalty:</p>
+        $$ p(\beta_{jk}) \varpropto exp(-\frac{1}{2}BIC), \qquad where \; BIC = -2 \cdot ln\mathcal{L}+p \cdot ln(n), $$
+        <p>effectively approximating a Gaussian prior with variance \(n^{-1}\).</p>
+        <br>
+
+        <h3>2.3.2 Model-Space Priors</h3>
+        <p><u><i>a. Uniform Prior:</i></u><p>
+        <p>Here the main assumption is that all models \(\gamma\) (where \(\gamma_j=1\) if predictor \(j\) is included) are equally likely:</p>
+        $$ p(\gamma) = \frac{1}{2^m} \qquad (for \; m=11 \; predictions) $$
+
+        <p><u><i>b. Beta-Binomial Prior:</i></u><p>
+        <p>A beta-binomial prior introduces sparsity by penalizing model size:</p>
+        $$ \pi \sim Beta(1,b), \gamma_i \sim Bernoulli(\pi) $$
+        <p>where \(\beta = \frac{a}{2}-1=0.5\) (with \(a=3\)). Marginalizing over \(\pi\), the prior probability of a model with \(p_\gamma\)​ predictors is:</p>
+        $$ p(\gamma) \varpropto \frac{\Gamma(1+p_\gamma)\Gamma(0.5+m-p_\gamma)}{\Gamma(1.5+m)}, \qquad (for \; m=11 \; predictions) $$
+        <br>
+
+        <h3>2.4 Model Comparison via DIC</h3>
+        <p>The Deviance Information Criterion (DIC) is defined as:</p>
+        $$ DIC=\underbrace{−2 \cdot ln⁡p(y∣\hat{\beta})}_{\text{Deviance}} + \underbrace{2p_D}_{Penalty} $$
+        <p>where \(p_D=E[−2 \cdot ln⁡p(y∣\beta)]−(−2 \cdot ln⁡p(y∣\hat{\beta}))\) estimates effective parameters. The results of prior comparisons were:</p>
+        <br />
+        <table class="styled-table" style = "margin:auto">
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Key Behaviour</th>
+                    <th>DIC Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Original Model (Low-Info)</td>
+                    <td>Overfit, high \(p_D\)​ due to unpenalized complexity</td>
+                    <td style = "text-align: right;">3036.0</td>
+                </tr>
+                <tr>
+                    <td>Reduced Model (BIC with Beta-Binomials)</td>
+                    <td>Excessively sparse, poor fit</td>
+                    <td style = "text-align: right;">3063.0</td>
+                </tr>
+                <tr>
+                    <td>Reduced Model (g-prior with Beta-Binomials)</td>
+                    <td>Rigid shrinkage, misses weak signals</td>
+                    <td style = "text-align: right;">3058.0</td>
+                </tr>
+                <tr class="active-row">
+                    <td>Reduced Model (Hyper-g with Beta-Binomials)</td>
+                    <td>Adaptive shrinkage, optimal fit-parsimony balance</td>
+                    <td style = "text-align: right;">3017.0</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <p>The problem with the reduced models which used BIC prior and g-prior on the betas is that they were too strict with the selection of the statistically significant coefficients up to the point where their final models did not represent the data as well as they should and thus, had much higher DIC values than the original model.</p>
+        <br />
+        <h2>3. Discussing the Results</h2>
+        <p>The selected variables and their exponentiated coefficients suggest the following key findings:</p>
+        <ul>
+            <li>Alcohol content significantly increases the probability of higher quality ratings.</li>
+            <li>Sulphates and free sulfur dioxide contribute positively to wine quality when maintained at optimal levels.</li>
+            <li>High levels of volatile acidity and chlorides are detrimental to wine scores.</li>
+            <li>pH and density should be carefully managed to balance the sensory profile of the wine.</li>
+        </ul>
+        <br />
+        <h2>4. Conclusion</h2>
+        <p>Our Bayesian approach identifies critical physiochemical characteristics that influence the quality of red "Vinho Verde" wines. These insights offer practical implications for winemakers seeking to refine production processes. Future research may incorporate additional sensory attributes and advanced machine learning techniques to further enhance predictive accuracy.</p>
+        <br />
+        <h2>References</h2>
+        <p>Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). Modeling wine preferences by data mining from physicochemical properties. <em>Decision Support Systems</em>, 47(4), 547-553. https://doi.org/10.1016/j.dss.2009.05.016</p>
+        <p>Liang, F., et al. (2008). <em>Mixtures of g-priors for Bayesian variable selection</em>. JASA.</p>
+        <p>Zellner, A. (1986). <em>On assessing prior distributions and Bayesian regression analysis with g-prior distributions</em>. Bayesian Inference and Decision Techniques.</p>
+        <p>Ntzoufras, I. 2009. <em>Bayesian Modelling Using WinBUGS</em>. Wiley.</p>
+        <p>Agresti, A. (2019). <em>An introduction to categorical data analysis</em> (3rd ed.). Wiley-Interscience.</p>
+        <p>Korner-Nievergelt, F., Roth, T., Felten, S., Guélat, J., Almasi, B., & Korner-Nievergelt, P. (2015). <em>Bayesian data analysis in ecology using linear models with R, BUGS, and Stan</em>. Academic Press.</p>
+        <p>Best, N., Spiegelhalter, D., Thomas, A., & Lunn, D. (2012). <em>The BUGS book: A practical introduction to Bayesian analysis</em>. CRC Press.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="wine_project_code.zip" download class="download-button">Download Code</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Web-Scraping for LinkedIn</h2>
+      <div class="modal-body">
+
+        <h2>Abstract</h2>
+        <p>Web scraping is an automated technique for extracting structured data from web pages. This methodology leverages the hierarchical nature of web documents, which are typically composed of HTML, CSS, and JavaScript. The objective of this study is to explore efficient web scraping techniques for extracting employment related data from LinkedIn.</p>
+        <br />
+        <h2>1. Introduction</h2>
+        <p>Web scraping is a technique, which automatically gathers data from the internet, by using the hierarchical structure of a webpage and then exports the results into a format that is more useful to the user. However, since the webpages come in all shapes and sizes, so do the algorithms that perform web-scraping. In general, a webpage is comprised of different languages, such as HTML, CSS, JavaScript, PHP, etc. that are interlinked within its source code and have it respond dynamically to whatever a user does (like click, or point, or hover over an object with a mouse, or perhaps type a string of characters using a keyboard, etc.). Therefore, the goal of web scraping, is to utilize this unique structure and get the data that a user desires.</p>
+        <br />
+
+        <h2>2. Data Extraction from LinkedIn</h2>
+        <p>Due to its dynamic content loading, LinkedIn requires advanced scraping techniques. The primary challenges include handling asynchronous JavaScript updates and mitigating access restrictions.</p>
+        <br />
+
+        <h2>3. Procedural Steps</h2>
+        <ol>
+            <li>Deployment of Docker to host RSelenium.</li>
+            <li>Generation of target URLs based on job search parameters.</li>
+            <li>Establishment of a server-client connection to navigate LinkedIn.</li>
+            <li>Programmatic scrolling to render dynamic content.</li>
+            <li>HTML parsing and extraction of job descriptions.</li>
+            <li>Keyword analysis to classify job listings based on relevant skills.</li>
+            <li>Storage of structured data in a database or structured file format.</li>
+        </ol>
+        <br />
+
+        <h2>4. Results</h2>
+        </br>
+        <img src="Word Cloud.png" alt="Results Graph" style="
+            height: 200;
+            width: 200;
+            border: 3px solid #ff6f61;
+            border-radius: 10px;
+            margin: 10px auto;
+            display: block;">
+        </br>
+            <p><u><i>Some words about the graph above:</i></u></p>
+            <p>As we can gather from the word-cloud above, the most popular data science and statistics software in 2025 is still Python, followed closely by SQL and R as far as the firms are concerned. It should come as no surprise as these are the tools most frequently mentioned both in businesses and in academia due to their simplicity in use, their ability to use powerful packages and versatility in presenting and visualizing the data. Plus, they require no subscription or fee, which is yet another incentive for any skeptical company or school. Tableau and PowerBI come right next to them, and these are proprietary software that were built with a main goal to help workers visualize and summarize the data given in a fast and easy way. These arguably have a more intuitive interface than the previous three mentioned and they do not need any programming knowledge to use them. They both have a free (or public) version of their respective software, but are, of course, more limited to what they can do when compared to the full versions. Perhaps the companies do not endorse them as much as others due to their monthly subscription.</p>
+
+      </div>
+      <div class="modal-footer">
+        <a href="web_scraping.zip" download class="download-button">Download Code</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Predicting Disaster Tweets</h2>
+      <div class="modal-body">
+        <h2>Abstract</h2>
+        <p>Natural Language Processing (NLP) leverages statistical methodologies to enable machines to understand, generate, and manipulate human language. The study pairs an NLP approach called TF-IDF with Random Forest Classification, and afterwards, evaluates their efficacy in tweet classification.</p>
+        <br>
+
+        <h2>1. Introduction</h2>
+        <p>Twitter is a social media platform where users share real-time updates, ideas, and interactions through short messages called tweets. These tweets, limited to 280 characters, can include hashtags, media, and direct engagement features like replies and retweets, enabling global conversations on diverse topics. The disaster tweets dataset on Kaggle focuses on leveraging this real-time data for natural language processing (NLP) and machine learning (ML) tasks. Its goal is to classify tweets as either referencing real disasters (e.g., earthquakes, fires) or non-disaster content, aiming to build accurate models that assist crisis response teams in identifying emergencies swiftly. By distinguishing actionable disaster-related tweets from casual mentions, this dataset supports improved situational awareness and disaster management efforts.</p>
+        <br>
+
+        <h2>2. Term Frequency-Inverse Document Frequency (TF-IDF)</h2>
+        <p>Term Frequency-Inverse Document Frequency (TF-IDF) is a numerical statistic that evaluates the importance of a word in a document relative to a collection (corpus). It helps distinguish words that are informative for a document while reducing the weight of common words that appear frequently across all documents.</p>
+        <br />
+        <p><i><u>a. Term Frequency (TF):</u></i></p>
+        <p>Term Frequency (TF) measures how often a term appears in a document. It is calculated as:</p>
+        $$ TF(t,d) = \frac{f_{t,d}}{N_d} $$
+        <p>where:</p>
+        <ul>
+            <li>\(f_{t,d}\) is the raw count of term \(t\) in document \(d\),</li>
+            <li>\(N_d\) is the total number of terms in document \(d\).</li>
+        </ul>
+        <p>This normalization accounts for document length, ensuring that longer documents don’t automatically have higher term counts.</p>
+        <br>
+        <p><i><u>b. Inverse Document Frequency (IDF):</u></i></p>
+        <p>Inverse Document Frequency (IDF) measures the importance of a term across a collection of documents. It is defined as:</p>
+        $$ IDF(t) = log(\frac{N}{df_t}+1) $$
+        <p>where:</p>
+        <ul>
+            <li>\(N\) is the total number of documents in the corpus,</li>
+            <li>\(df_t\) is the number of documents containing term \(t\).</li>
+        </ul>
+        <p>The logarithm dampens the impact of very frequent words while ensuring rare words have a higher weight.</p>
+        <br>
+        <p><i><u>c. Term Frequency-Inverse Document Frequency (TF-IDF) Calculation:</u></i></p>
+        <p>TF-IDF is obtained by multiplying the term frequency and inverse document frequency:</p>
+        $$ \text{TF-IDF}(t,d)=TF(t,d)×IDF(t) $$
+        <p>This weighting scheme increases the importance of words that are frequent in a specific document but rare across the entire corpus. Words that appear in nearly all documents (e.g., "the," "is") have an IDF close to zero, reducing their impact.</p>
+        <br>
+
+        <h2>3. Random Forest Classification</h2>
+        <p>Random Forest is an ensemble learning method that combines multiple decision trees to improve classification accuracy and reduce overfitting. It operates by constructing multiple decision trees during training and outputting the class that is the mode of individual trees’ predictions.</p>
+        <br>
+        <p><i><u>Decision Trees as Base Learners:</u></i></p>
+        <p>Each tree in a Random Forest is a Decision Tree, which recursively splits the dataset based on feature values to minimize a chosen impurity measure, such as Gini Impurity or Entropy.</p>
+        <p><i><u>a. Gini Impurity</u></i></p>
+        <p>The Gini impurity measures how often a randomly chosen element from a set would be incorrectly classified if randomly labeled according to class distributions. This was the impurity measure chosen for our results, simply becaue it produced better results than an Entropy impurity measure. Its formula is:</p>
+        $$ G = 1 - \sum_{i=1}^{C}p_i^2 $$
+        <p>where:</p>
+        <ul>
+            <li>\(C\) is the total number of classes,</li>
+            <li>\(p_i\) is the proportion of instances belonging to class \(i\) at a node.</li>
+        </ul>
+        <p>A lower Gini impurity indicates a purer node.</p>
+        <p><i><u>b. Entropy (Information Gain)</u></i></p>
+        <p>Entropy quantifies the disorder (uncertainty) in the dataset:</p>
+        $$ H(S) = -\sum_{i=1}^{C}p_i \cdot log_2(p_i) $$
+        <p>where:</p>
+        <ul>
+           <li>\(S\) is the set of instances at a node,</li>
+           <li>\(p_i\) is the probability of class \(i\) at that node.</li>
+        </ul>
+        <p>A split that maximizes Information Gain (IG) is preferred:</p>
+        $$ IG = H(S)-\sum_{j}\frac{|S_j|}{|S|} \cdot H(S_j) $$
+        <p>where \(S_j\)​ are the subsets formed after a split.</p>
+        <p><i><u>Bootstrap Aggregation (Bagging):</u></i></p>
+        <p>Each tree is trained on a different bootstrap sample (random sampling with replacement) from the training data. Given \(N\) training samples, each tree is trained on approximately 63.2% of the data (since the probability of a sample not being selected is \((1−\frac{1}{N})^N \approx e^{−1} \approx 36.8%\)).</p>
+        <p>The advantage of bagging is that it reduces variance by averaging multiple weak learners.</p>
+        <p><i><u>Feature Randomness (Feature Selection per Split):</u></i></p>
+        <p>Instead of using all features at each split (as in traditional decision trees), Random Forest selects a random subset of mm features from the total \(M\) features (\(m < M\)). This ensures diversity among trees and reduces correlation between them.</p>
+        <p>The optimal \(m\) is often set as \(m = \sqrt{M}\) for classification problems, or \(m = M/3\) for regression problems.</p>
+        <p><i><u>Final Prediction (Voting Mechanism):</u></i></p>
+        <p>For classification tasks, each tree provides a class prediction, and the final output is determined by <strong>majority voting</strong>:</p>
+        $$ \hat{y} = \arg \max_{k} \sum_{j=1}^{T}1(h_j(x)=k) $$
+        <p>where:</p>
+        <ul>
+            <li>\(h_j(x)\) is the class prediction of the \(j^{th}\) tree for instance \(x\),</li>
+            <li>\(T\) is the total number of trees,</li>
+            <li>\(1(\cdot)\) is an indicator function that returns \(1\) if the condition is true.</li>
+        </ul>
+        <p>For regression tasks, the final output is the average of all tree predictions:</p>
+        $$ \hat{y} = \frac{1}{T} \sum_{j=1}^{T}h_j(x) $$
+        <p><i><u>Bias-Variance Tradeoff in Random Forest:</u></i></p>
+        <p>Random Forest reduces variance compared to individual decision trees while maintaining low bias. This is because bagging reduces variance by averaging out noise and random feature selection prevents trees from being too similar. However, using too many trees increases computational cost, while too few trees can lead to underfitting.</p>
+        <br>
+
+        <h2>4. F1 Score: A Statistical Measure of Classification Performance</h2>
+        <p>The F1 score is a harmonic mean of precision and recall, widely used to evaluate binary classification models, particularly in imbalanced datasets where one class dominates. It balances the trade-off between precision (accuracy of positive predictions) and recall (completeness of positive identifications).</p>
+        <p><i><u>Precision (P):</u></i></p>
+        <p>Precision measures how many of the predicted positive instances are actually correct:</p>
+        $$ P = \frac{TP}{TP+FP} $$
+        <p>where:</p>
+        <ul>
+           <li>True Positives (\(TP\)) are the correctly predicted positive samples,</li>
+           <li>False Positives (\(FP\)) are the incorrectly predicted positive samples.</li>
+        </ul>
+        <p>Thus, it is reasonable that fewer False Positives (\(FP\)) lead to a higher Precision (\(P\)).</p>
+        <p><i><u>Recall (R):</u></i></p>
+        <p>Recall (also known as Sensitivity or True Positive Rate) measures how many actual positive instances were correctly identified:</p>
+        $$ R = \frac{TP}{TP+FN} $$
+        <p>where False Negatives (\(FN\)) are the positive samples, which were incorrectly predicted as negative. Therefore, fewer False Negatives (\(FN\)) lead to higher Recall (\(R\)).</p>
+        <p><i><u>F1-Score:</u></i></p>
+        <p>The F1 score provides a single metric to evaluate classifiers in scenarios where both false positives and false negatives carry consequences. Its harmonic mean formulation ensures neither precision nor recall dominates, making it indispensable in imbalanced or high-stakes domains like healthcare, fraud detection, and NLP. It is the harmonic mean of precision and recall:</p>
+        $$ F1 = 2 × \frac{P×R}{P+R} $$
+        <p>The harmonic mean ensures that both precision and recall contribute equally to the score. Unlike the arithmetic mean, the harmonic mean penalizes extreme values, meaning a low precision or recall will significantly reduce the F1-Score. F1 is ideal when class distribution is skewed. For instance, in fraud detection (99% non-fraudulent transactions), accuracy alone may mislead (e.g., 99% accuracy by always predicting "non-fraud"). F1 prioritizes balancing precision and recall.</p>
+        <p><i><u>Interpretation and Properties:</u></i></p>
+        <ul>
+           <li>Best Case: \(F1=1\) when \(P=R=1\) (perfect classification).</li>
+           <li>Worst Case: \(F1=0\) when either \(P=0\) or \(R=0\) (completely incorrect classification).</li>
+           <li>Balanced Contribution: If precision is high but recall is low (or vice versa), the F1-score provides a balanced view rather than favoring one over the other.</li>
+        </ul>
+        <br>
+
+        <h2>5. Results</h2>
+        <p>From the very beginning it was apparent that a clear distinction between disaster-related tweets and ordinary social media posts could probably be achieved. This is something that is corroborated by the word-clouds below:</p>
+        <div style="display: flex; gap: 20px; margin: 0; padding: 0;">
+            <div style="flex: 1; margin: 0; padding: 0;">
+                <img src="disaster1.png" alt="Disasters Graph"
+                     style="width: 200; height: 200; display: block; border: 3px solid #ff6f61; border-radius: 10px; margin: 10px auto;">
+            </div>
+            <div style="flex: 1; margin: 0; padding: 0;">
+                <img src="disaster2.png" alt="Non-Disasters Graph"
+                     style="width: 200; height: 200; display: block; border: 3px solid #ff6f61; border-radius: 10px; margin: 10px auto;">
+            </div>
+        </div>
+        <p>It appears that the most frequent words get re-used in both sets of data. Many people must be linking websites or videos to their tweets (and thus, "https" is the top result in the word-clouds) sharing either their opinions, or real disasters. The word cloud that depicts disasters, seems to include names for those disasters, like FIRE, or STORM, etc. used more frequently. And also on a first glance, it uses more "negative" words, like KILLED, or CRASH as well as others.</p>
+        <p>The evaluation of our results yielded the following:</p>
+        <table class="styled-table" style = "margin:auto">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style = "text-align: center;">Precision</th>
+                    <th style = "text-align: center;">Recall</th>
+                    <th style = "text-align: center;">F1-Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0</td>
+                    <td style = "text-align: center;">0.76</td>
+                    <td style = "text-align: center;">0.90</td>
+                    <td style = "text-align: center;">0.82</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td style = "text-align: center;">0.82</td>
+                  <td style = "text-align: center;">0.61</td>
+                  <td style = "text-align: center;">0.70</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <p>The model achieved a validation accuracy of 77.68%, indicating solid overall performance in classifying disaster tweets. However, a deeper look at precision, recall, and F1-Score provides a more nuanced understanding.</p>
+        <p>In general, the model performs better at identifying non-disaster tweets (Class 0), with a high recall (0.90), meaning it correctly captures most of them. However, for disaster tweets (Class 1), recall is lower (0.61), meaning many real disaster tweets are misclassified as non-disasters. This is a concern in critical applications where false negatives (missed disasters) are costly.</p>
+        <br>
+
+        <h2>6. Conclusion</h2>
+        <p>This study applied Natural Language Processing (NLP) techniques, specifically TF-IDF for feature extraction and a Random Forest classifier, to classify disaster-related tweets. The model achieved a validation accuracy of 77.68%, with strong precision for disaster tweets (0.82) but lower recall (0.61), indicating that while false positives were minimized, some disaster-related tweets were misclassified.</p>
+        <p>Improving recall through class balancing, threshold adjustments, or enhanced feature engineering could further refine performance. Overall, this approach demonstrates the effectiveness of statistical NLP and machine learning in disaster tweet classification, with potential for real-time application in crisis response.</p>
+        <br />
+
+        <h2>References</h2>
+        <p>Addison Howard, Devrishi, Phil Culliton, and Yufeng Guo. (2019). <em>Natural Language Processing with Disaster Tweets</em>. Retrieved from https://www.kaggle.com/competitions/nlp-getting-started</p>
+        <p>Spärck Jones, K. (1972). <em>A statistical interpretation of term specificity and its application in retrieval</em>. Journal of Documentation, 28(1), 11–21. https://doi.org/10.1108/eb026526</p>
+        <p>Breiman, L. (2001). <em>Random forests. Machine Learning</em>, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324</p>
+        <p>Hastie, T., Tibshirani, R., & Friedman, J. (2009). <em>The elements of statistical learning: Data mining, inference, and prediction</em> (2nd ed.). Springer. https://doi.org/10.1007/978-0-387-84858-7</p>
+        <p>Géron, A. (2019). <em>Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow</em> (2nd ed.). O’Reilly Media.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="tweet_disaster.zip" download class="download-button">Download Code</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal4" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Binary Distances Through Similarity-Dissimilarity Measures</h2>
+      <div class="modal-body">
+        <h3>Abstract</h3>
+        <p>This project involves calculating binary distances between rows or columns of a matrix using similarity-dissimilarity measures. It is implemented in R.</p>
+
+        <h3>Introduction</h3>
+        <p>Binary distance measures are widely used in clustering and classification tasks. This project explores the use of Jaccard and Hamming similarity measures.</p>
+
+        <h3>Methodology</h3>
+        <p>The algorithm takes a binary matrix as input and computes distances using Jaccard and Hamming similarity measures.</p>
+        <img src="binary_methodology.png" alt="Methodology Diagram" class="article-image">
+
+        <h3>Results</h3>
+        <p>The algorithm successfully calculates distances and can be used for clustering and classification tasks. The results were validated using synthetic datasets.</p>
+        <img src="binary_results.png" alt="Results Graph" class="article-image">
+
+        <h3>Conclusion</h3>
+        <p>This project provides a robust implementation of binary distance measures in R. Future work could extend the algorithm to handle larger datasets.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="binary_distances_code.zip" download class="download-button">Download Code</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal5" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="modal-title">Binary Distances Through Similarity-Dissimilarity Measures</h2>
+      <div class="modal-body">
+        <h3>Abstract</h3>
+        <p>This project involves calculating binary distances between rows or columns of a matrix using similarity-dissimilarity measures. It is implemented in R.</p>
+
+        <h3>Introduction</h3>
+        <p>Binary distance measures are widely used in clustering and classification tasks. This project explores the use of Jaccard and Hamming similarity measures.</p>
+
+        <h3>Methodology</h3>
+        <p>The algorithm takes a binary matrix as input and computes distances using Jaccard and Hamming similarity measures.</p>
+        <img src="binary_methodology.png" alt="Methodology Diagram" class="article-image">
+
+        <h3>Results</h3>
+        <p>The algorithm successfully calculates distances and can be used for clustering and classification tasks. The results were validated using synthetic datasets.</p>
+        <img src="binary_results.png" alt="Results Graph" class="article-image">
+
+        <h3>Conclusion</h3>
+        <p>This project provides a robust implementation of binary distance measures in R. Future work could extend the algorithm to handle larger datasets.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="binary_distances_code.zip" download class="download-button">Download Code</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konstantinos Kirillov - Contact</title>
+  <style>
+    /* Reset some default styles */
+    body, h1, h2, ul, li, p, a, input, textarea, button {
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      color: inherit;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    /* Global Styles */
+    body {
+      background-color: #000000; /* Black background */
+      color: #ffffff; /* White text */
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* Full viewport height */
+    }
+
+    /* Custom Banner */
+    .banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    }
+
+    .banner-left a {
+      color: #ffffff; /* White text */
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .banner-right ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .banner-right ul li a {
+      color: #ffffff; /* White text */
+      font-size: 18px;
+    }
+
+    /* Contact Section */
+    .contact-container {
+      flex-grow: 1; /* Take up remaining space */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .contact-form {
+      width: 100%;
+      max-width: 600px; /* Limit the width of the form */
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-form h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ffffff;
+      border-radius: 5px;
+      background-color: #000000;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .contact-form textarea {
+      resize: vertical; /* Allow vertical resizing */
+      min-height: 150px;
+    }
+
+    .contact-form button {
+      padding: 0.75rem 1.5rem;
+      background-color: #ff6f61;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #ff4a3d;
+    }
+
+    .error-message {
+      color: #ff4a3d;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none; /* Hidden by default */
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Banner -->
+  <div class="banner">
+    <!-- Left: Name (links back to index.html) -->
+    <div class="banner-left">
+      <a href="index.html">Konstantinos Kirillov</a>
+    </div>
+
+    <!-- Right: Navigation Links -->
+    <div class="banner-right">
+      <ul>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <main class="contact-container">
+    <form class="contact-form" id="contactForm" action="https://formspree.io/f/movjwnwr" method="POST">
+      <h2>Contact Me</h2>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" id="email" placeholder="Your Email" required>
+      <div class="error-message" id="emailError">Please enter a valid email address.</div>
+      <input type="text" name="subject" placeholder="Subject" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </main>
+
+  <script>
+    // Email validation function
+    function validateEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+      return regex.test(email);
+    }
+
+    // Form submission handler
+    const contactForm = document.getElementById('contactForm');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+
+    contactForm.addEventListener('submit', function (event) {
+      // Check if the email is valid
+      if (!validateEmail(emailInput.value)) {
+        emailError.style.display = 'block'; // Show error message
+        event.preventDefault(); // Prevent form submission
+      } else {
+        emailError.style.display = 'none'; // Hide error message
+      }
+    });
+  </script>
+</body>
+</html>
