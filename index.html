@@ -506,11 +506,636 @@
       <div class="modal-body">
         <br />
         <hr />
-        <h3>Abstract</h3>
-        <p>This project is still under construction. :)</p>
+        <h2>Abstract</h2>
+        <p>This study conducts a comprehensive evaluation of various portfolio optimization strategies using historical stock data to identify the most effective approaches for maximizing returns while minimizing risk. We analyze six distinct strategies: <strong>Equal-Weighted</strong>, <strong>Minimum Volatility</strong>, <strong>Maximum Sharpe Ratio</strong>, <strong>Risk Parity</strong>, <strong>Momentum</strong>, and <strong>Monte Carlo Simulation-Based</strong> portfolios. Key performance metrics, including <strong>Annualized Return</strong>, <strong>Volatility</strong>, <strong>Sharpe Ratio</strong>, and <strong>Sortino Ratio</strong>, are employed to assess their effectiveness. The findings reveal that <strong>Momentum</strong> and <strong>Maximum Sharpe Ratio</strong> portfolios consistently outperform traditional <strong>Equal-Weighted</strong> strategies, particularly under specific market conditions. This research underscores the importance of advanced optimization techniques in achieving superior risk-adjusted returns.</p>
         <hr />
         <hr />
         <br>
+
+        <h2>1. Introduction</h2>
+        <p>Portfolio optimization is a cornerstone of modern investment management, aiming to construct asset allocations that efficiently balance risk and return. Traditional models, such as Markowitz's mean-variance optimization, have laid the foundation for portfolio theory. However, advancements in financial analytics have introduced more sophisticated techniques, including factor-based investing, risk parity, and Monte Carlo simulations. This paper investigates the efficacy of six portfolio strategies applied to a dataset of ten major U.S. stocks (<i>"AAPL", "MSFT", "GOOGL", "TSLA", "JNJ", "PFE", "XOM", "CVX", "WMT", "PG"</i>) from January 2020 to January 2025. By employing risk-adjusted performance metrics, we aim to identify the most effective strategies for investors seeking to optimize their portfolios.</p>
+        <br>
+
+        <h2>2. Portfolio Strategies</h2>
+        <h3><strong><u> 2.1. The Equal-Weights Portfolio </u></strong>:</h3>
+
+        <p>An Equal-Weighted Portfolio assigns the same weight to each asset in the portfolio, regardless of its market capitalization, risk, or return characteristics. Each asset in the portfolio is given an equal percentage allocation (for instance in our 10-asset portfolio, each stock gets 10%). It does require constant rebalancing to maintain equal weights as asset prices change. Mathematically, its weights could be written as:</p>
+        $$ w_i = \frac{1}{n}, \qquad for \; i=1,...,n. $$
+        <p>with:</p>
+        $$ \sum_{i=1}^{n}w_i=1 $$
+
+        <p>where:</p>
+        <ul>
+            <li>\(w_i\) is the weight of asset \(i\).</li>
+            <li>\(n\) is the total number of  assets.</li>
+        </ul>
+
+        <p>This formula gets rebalanced as asset prices change over periods.</p>
+
+        <p>Despite its simplicity, the equal-weighted approach has several advantages:</p>
+        <ol>
+            <li><strong>Simplicity</strong>: Due to its simplicity, it does not require complex optimization algorithms or forecasting models.</li>
+            <li><strong>Diversification</strong>: It ensures diversification across all selected assets.  The portfolio itself is not overly concentrated in any single asset.</li>
+            <li><strong>Reduced Bias</strong>: It avoids the biases that can creep into other weighting schemes, like market-cap weighting, which tends to overweight large companies.</li>
+        </ol>
+
+        <p><u>Important Considerations for Equal-Weighted Portfolios:</u></p>
+        <ol>
+            <li><strong>Rebalancing</strong>: Equal-weighted portfolios require periodic rebalancing. As asset prices change, the weights will drift away from the equal allocation. Rebalancing involves selling some of the overperforming assets and buying some of the underperforming assets to restore the equal weights. This rebalancing process can incur transaction costs, which can eat into returns. The frequency of rebalancing has to be chosen carefully.</li>
+            <li><strong>Volatility</strong>: While equal weighting diversifies, it doesn't eliminate volatility.  The portfolio can still experience significant fluctuations, especially if the underlying assets are volatile. Furthermore, equal weighting can inadvertently lead to a bias towards smaller companies, as they receive the same weight as large companies. This can increase volatility.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong><u> 2.2. The Minimum Volatility Portfolio </u></strong>:</h3>
+        <p>A Minimum Volatility Portfolio is constructed to minimize the overall portfolio volatility (standard deviation of returns). What it does, is it seeks the portfolio weights that result in the lowest possible portfolio variance, regardless of the expected returns of the individual assets. It can be expressed mathematically as:</p>
+        $$ \min_{w}w^T \Sigma w $$
+        <p>subject to:</p>
+        $$ \sum_{i=1}^{n}w_i=1, \qquad and \qquad w_i \geq 0 \qquad (no \; short \; selling)$$
+        <p>where:</p>
+        <ul>
+            <li>\(w\) is the vector of asset weights \(w=[w_1, ..., w_n]\).</li>
+            <li>\(\Sigma\) is the covariance matrix of asset returns.</li>
+        </ul>
+
+        <p>A Minimum Volatility Portfolio can be quite advantageous for a couple of reasons:</p>
+        <ol>
+            <li><strong>Risk Aversion</strong>:  Many investors are primarily concerned with minimizing risk. The MVP directly addresses this concern by focusing on minimizing volatility.</li>
+            <li><strong>Diversification Benefits</strong>:  By carefully considering the covariance between assets, the MVP can achieve better diversification benefits than a naive approach (like equal weighting). It seeks to combine assets that have low or even negative correlations to reduce overall portfolio volatility.</li>
+        </ol>
+
+        <p><u>Important Considerations for Minimum Volatility Portfolios:</u></p>
+        <ol>
+            <li><strong>Covariance Matrix</strong>: The accuracy of the Minimum Volatility Portfolio depends heavily on the accuracy of the covariance matrix.  Estimating the covariance matrix is a crucial and often challenging task.  Errors in the covariance matrix can lead to suboptimal portfolios. Therefore it is sensitive to inputs.</li>
+            <li><strong>Concentration Risk</strong>:  While the Minimum Volatility Portfolio minimizes overall volatility, it might concentrate investments in a small number of low-volatility assets. This can lead to unintended concentration risk.</li>
+            <li><strong>Returns are Not Considered</strong>: The Minimum Volatility Portfolio only focuses on minimizing volatility. It does not explicitly consider expected returns.  It's possible that the Minimum Volatility Portfolio might have a low return compared to other portfolios with slightly higher volatility.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong><u> 2.3. The Maximum Sharpe Ratio Portfolio </u></strong>:</h3>
+        <p>A Maximum Sharpe Ratio Portfolio aims to maximize the risk-adjusted return, as measured by the Sharpe Ratio. So what it does, is it uses optimization to allocate weights to assets such that the portfolio’s Sharpe Ratio (excess return per unit of risk) is maximized. Its optimiazation formula is:</p>
+        $$ \max_{w} \frac{w^TR-R_f}{\sqrt{w^T \Sigma w}} $$
+        <p>subject to:</p>
+        $$ \sum_{i=1}^{n}w_i=1, \qquad and \qquad w_i \geq 0$$
+
+        <p>where:</p>
+        <ul>
+            <li>\(R\) is the vector of expected asset returns.</li>
+            <li>\(R_f\) is the risk-free rate.</li>
+            <li>\(\Sigma\) is the covariance matrix of asset returns.</li>
+        </ul>
+
+        <p>It does present a few advantages:</p>
+        <ol>
+            <li><strong>Optimal Risk-Return Tradeoff</strong>: The Sharpe Ratio is a widely accepted measure of risk-adjusted return.  Maximizing it means finding the portfolio that offers the best balance between risk and return.</li>
+            <li><strong>Efficient Frontier</strong>: The Maximum Sharpe Ratio Portfolio is a key point on the efficient frontier. The efficient frontier represents the set of optimal portfolios that offer the highest expected return for a given level of risk (or the lowest risk for a given expected return).</li>
+        </ol>
+
+        <p><u>Important Considerations for Maximum Sharpe Ratio Portfolios:</u></p>
+        <ol>
+            <li><strong>Estimation Error</strong>: Because the inputs are estimates, there is always some degree of estimation error. This can lead to the "optimizer's curse," where the optimized portfolio performs worse out-of-sample than it did in-sample. ALso it is sensitive to inputs, much like the Minimum Volatility Portfolios are.</li>
+            <li><strong>Normally Distributed Returns</strong>:  The Sharpe Ratio, and therefore the MSRP, assumes that returns are normally distributed.  If returns are non-normal (e.g., skewed or have fat tails), the Sharpe Ratio might not be the most appropriate metric to optimize.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong><u> 2.4. The Risk Parity Portfolio </u></strong>:</h3>
+        <p>A Risk Parity Portfolio aims to allocate capital such that each asset (or asset class) contributes equally to the overall portfolio risk.  Unlike traditional portfolio construction methods that focus on maximizing returns or minimizing volatility, risk parity focuses on equalizing risk contributions, so it offers a different approach to portfolio construction than market-cap weighting or other traditional methods. It can be particularly attractive for investors seeking balanced risk exposure across asset classes, particularly in volatile markets. Mathematically, it can be written as:</p>
+        $$ w_i \cdot \frac{\partial \sigma_p}{\partial w_i} = w_j \cdot \frac{\partial \sigma_p}{\partial w_j}, \qquad for \; all \; i,j. $$
+
+        <p>or alternatively, the optimization problem can be written as:</p>
+        $$ \min_{w} \sum_{i=1}^{n} (w_i \cdot \frac{\partial \sigma_p}{\partial w_i} - \frac{\sigma_p}{n})^2 $$
+
+        <p>subject to:</p>
+        $$ \sum_{i=1}^{n}w_i=1, \qquad and \qquad w_i \geq 0$$
+
+        <p>where:</p>
+        <ul>
+            <li>\(\sigma_p\) is the portfolio standard deviation.</li>
+            <li>\(\frac{\partial \sigma_p}{\partial w_i}\) is the marginal contribution to risk (MCR) of asset \(i\). It represents how much the portfolio's overall volatility (\(\sigma_p\)) changes when you slightly change the weight of asset \(i\) (\(w_i\)), holding the weights of all other assets constant. In simpler terms, it measures how much asset \(i\) contributes to the portfolio's total risk.</li>
+        </ul>
+
+        <p>The advantages of this portfolio strategy are:</p>
+        <ol>
+            <li><strong>Diversification of Risk</strong>: Risk Parity Portfolios are designed to diversify risk, not just capital.  The idea is to avoid concentrating risk in a few volatile assets, which can happen with other portfolio construction methods. Thus it would perform well, where for example traditional 60/40 portfolios would struggle.</li>
+            <li><strong>Stability</strong>: By equalizing risk contributions, risk parity portfolios can be more stable over time, as no single asset dominates the portfolio's risk.</li>
+        </ol>
+
+        <p><u>Important Considerations for Risk Parity Portfolios:</u></p>
+        <ol>
+            <li><strong>Covariance Matrix</strong>: Like other optimization methods, Risk Parity relies heavily on the accuracy of the covariance matrix.  Errors in the covariance matrix can lead to suboptimal or unintended risk allocations.</li>
+            <li><strong>Rebalancing</strong>: Risk parity portfolios require frequent rebalancing to maintain the target risk contributions.  As asset volatilities and correlations change, the weights need to be adjusted. Thus, it could get expensive, when transaction costs are considered.</li>
+            <li><strong>Concentration Risk</strong>: While risk parity aims to diversify risk, it might still lead to concentrated positions in certain assets, especially if a few assets have very low correlations with the rest of the portfolio.</li>
+            <li><strong>Returns are Not Explicitly Considered</strong>: Risk parity focuses on equalizing risk contributions, not on maximizing returns.  The resulting portfolio might have a lower expected return than other optimized portfolios.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong><u> 2.5. The Momentum Portfolio</u></strong>:</h3>
+
+        <p>A momentum portfolio invests in assets that have performed well (shown positive price momentum) over a recent period. Essentially, what it does is, it identifies assets with the highest returns over a specific look-back period (e.g., 6-12 months) and then, it allocates higher weights to high-momentum assets and lower weights to low-momentum assets. This strategy is based on the idea that trends tend to persist – assets that have been going up are more likely to continue going up, at least for a while It is suitable for aggressive investors who can tolerate higher risk and turnover. It follows the following strategy:</p>
+        <ol>
+            <li>It ranks assets by their past returns over a look-back period (e.g., 6-12 months):</li>
+            $$ r_i​(t) = \; Return \; of \; asset \; i \; over \; the \; look-back \; period. $$
+            <li>Then, it assigns weights that are proportional to the rank of each asset:</li>
+            $$ w_i = \frac{Rank(r_i)}{\sum_{j=1}^{n}Rank(r_j)} $$
+        </ol>
+
+        <p>Some of its advantages are:</p>
+        <ol>
+            <li><strong>Trend Following</strong>: Momentum investing is a form of trend following. It capitalizes on the tendency of asset prices to move in trends, both upward and downward.</li>
+            <li><strong>Behavioral Bias</strong>: Momentum effects are sometimes attributed to behavioral biases, such as herding behavior and the tendency of investors to underreact to new information, which represents reality quite adequately.</li>
+        </ol>
+
+        <p><u>Important Considerations for Momentum Portfolios:</u></p>
+        <ol>
+            <li><strong>Momentum Period and Number of Top Assets</strong>: The choice of that period is crucial. Too short a period might lead to whipsaws (frequent changes in the portfolio), while too long a period might miss shorter-term trends. The number of top-performing assets to include in the portfolio is another important parameter. A smaller number might lead to a more concentrated portfolio, while a larger one might dilute the momentum effect.</li>
+            <li><strong>Rebalancing Frequency</strong>: Momentum portfolios require periodic rebalancing to maintain the desired exposure to the top-performing assets. The frequency of rebalancing affects transaction costs and portfolio turnover.</li>
+            <li><strong>Volatility</strong>: Momentum strategies can be volatile, especially during periods of market reversals. Which also mean s that Momentum strategies are susceptible to "crash risk."  If the market suddenly reverses, the momentum portfolio can experience large losses.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong><u> 2.6. The Monte Carlo Simulation Portfolio</u></strong>:</h3>
+        <p>A Monte Carlo simulation is a computational technique that uses random sampling to obtain numerical results. In the context of portfolio optimization, it involves generating a large number of random portfolios, calculating their performance metrics, and then analyzing the distribution of these results to identify potentially optimal portfolios. It uses random sampling and statistical modeling to simulate a wide range of possible portfolio outcomes. Its methodology is:</p>
+        <ol>
+        <li>Simulate \(M\) scenarios of asset returns using historical data or assumed distributions:</li>
+        $$ R_m=[R_{1m},R_{2m},…,R_{nm}] \; for \; m=1,2,…,M $$
+
+        <li>For each scenario, compute portfolio returns:</li>
+        $$ R_{p,m} = w^TR_m $$
+
+        <li>Optimize portfolio weights to maximize expected utility or minimize risk across all scenarios:</li>
+        $$ \max_{w} \frac{1}{M} \sum_{m=1}^{M} U(R_{p,m}​) $$
+        <p>Where \(U(\cdot)\) is a utility function (e.g., mean-variance utility).</p>
+        </ol>
+
+        <p>It can be pretty advantegous to use, due to its simplicity but also because of the following reasons:</p>
+        <ol>
+            <li><strong>Exploration of the Solution Space</strong>: Monte Carlo simulations can explore a wide range of possible portfolio weights, especially when dealing with a large number of assets. This can be helpful in identifying portfolios that might be missed by other optimization methods.</li>
+            <li><strong>No Assumptions About Return Distribution</strong>: Monte Carlo simulations do not require any specific assumptions about the distribution of asset returns. This can be an advantage when dealing with assets that have non-normal return distributions.</li>
+        </ol>
+
+        <p><u>Important Considerations for Monte Carlo Simulation Portfolios:</u></p>
+        <ol>
+            <li><strong>Computational Cost</strong>: Monte Carlo simulations can be computationally expensive, especially when dealing with a large number of assets or a large number of simulations. More iterations generally lead to better results but also increase computation time.</li>
+            <li><strong>Suboptimal Solutions</strong>: Monte Carlo simulations do not guarantee finding the absolute optimal portfolio. They provide a sample of potentially good portfolios, but there might be even better portfolios that were not generated in the simulation.</li>
+            <li><strong>Random Number Generation</strong>: The quality of the random numbers used in the simulation is important.  A good random number generator is essential. It relies on the quality of input assumptions and historical data.</li>
+        </ol>
+        <br>
+        <hr>
+        <hr>
+
+        <h2>3. Performance Metrics</h2>
+        <h3><strong><u> 3.1. The Sharpe Ratio </u></strong>:</h3>
+
+        <p>The Sharpe Ratio is one of the most widely used measures of risk-adjusted return. It was developed by Nobel laureate William F. Sharpe. The Sharpe Ratio measures the excess return (return above the risk-free rate) per unit of total risk (volatility). A higher Sharpe Ratio indicates better risk-adjusted performance. It is useful for comparing the performance of different portfolios or funds, especially when the risk-free rate is stable. It's formula is:</p>
+        $$ Sharpe \; Ratio = \frac{R_p-R_f}{\sigma_p} $$
+
+        <p>where:</p>
+        <ul>
+            <li>\(R_p\) is the portfolio return.</li>
+            <li>\(R_f\) is the return of a theoretically risk-free investment.  In practice, it's often proxied by the yield on a short-term government bond, like a Treasury bill (which was the method used here).  The idea is that this is the return you could get with virtually no risk.  We subtract the risk-free rate because we're interested in the excess return – the return above and beyond what you could get risk-free.</li>
+            <li>\(\sigma_p\) is the standard deviation of portfolio returns.</li>
+        </ul>
+
+        <p>Limitations:</p>
+        <ol>
+            <li>It assumes returns are normally distributed, which may not always be true.</li>
+            <li>It penalizes both upside and downside volatility equally.</li>
+            <li>Changes in the risk-free rate can affect the Sharpe Ratio, even if the portfolio's performance remains the same.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong> <u> 3.2. The Sortino Ratio </u> </strong>:</h3>
+        <p>The Sortino Ratio measures the excess return per unit of downside risk. It is more focused on the risk of losses rather than overall volatility. It is defined as:</p>
+        $$ Sortino \; Ratio = \frac{E[R_p]-R_f}{\sigma_d} $$
+        <p>where:</p>
+        <ul>
+            <li>\(E[R_p] = \sum_{i=1}^{n} w_i \cdot E[R_i] \) is the expected portfolio return. Here, \(n\) is the number of assets in a portfolio and \(w_i\) are the asset weights.</li>
+            <li>\(R_f\) is the risk-free rate.</li>
+            <li>\(\sigma_d\) is the downside deviation.</li>
+        </ul>
+        <p>Here, downside deviation \(\sigma_d\) is computed as:</p>
+        $$ \sigma_d = \sqrt{\frac{1}{n} \sum_{t=1}^{n} min[R_t-R_f, 0]^2} $$
+
+        <p>While the minimum possible value for downside deviation is technically 0, it's an unrealistic edge case.  In any practical investment scenario, the downside deviation will be greater than 0 because returns will always have some degree of variability, and there will inevitably be some returns below the target. Therefore, here instead of 0, we shall make it return a very small number: 1e-6.</p>
+
+        <p>Limitations:</p>
+        <ol>
+            <li>It requires a clear definition of the target return.</li>
+            <li>It ignores upside volatility, which may not be suitable for all investors.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong> <u> 3.3. The Omega Ratio </u> </strong>:</h3>
+        <p>The Omega Ratio is a more comprehensive measure that considers the entire distribution of returns, rather than just volatility or downside risk. It compares the probability-weighted gains above a threshold (numerator) to the probability-weighted losses below the threshold (denominator). A ratio greater than 1 indicates that the investment has more gains than losses relative to the threshold. Its formula is:</p>
+        $$ Omega \; Ratio = \frac{\int_{T}^{\infty}(1-F(r))dr}{\int_{-\infty}^{T}F(r)dr} $$
+
+        <p>where:</p>
+        <ul>
+            <li>\(F(r)\) is the cumulative distribution function of returns.</li>
+            <li>\(T\) is the threshold return (e.g., risk-free rate or target return).</li>
+        </ul>
+
+        <p>The Omega Ratio's strength lies in its ability to handle non-normal distributions.  Unlike the Sharpe Ratio, it doesn't assume returns follow a bell curve.  This makes it more suitable for investments with skewed returns or fat tails (like hedge funds or options strategies).  It also allows you to define your own threshold (T), which can be more meaningful than just using the risk-free rate.  For example, you could set T to your portfolio's target return.</p>
+
+        <p>Limitations:</p>
+        <ol>
+            <li>It is computationally complex compared to other ratios.</li>
+            <li>It requires a clear definition of the threshold return \(T\). Different thresholds can lead to different Omega Ratios for the same investment.  This means careful consideration must be given to selecting an appropriate threshold.  It also means that comparing Omega Ratios across investments requires using the same threshold.</li>
+            <li>While a higher Omega Ratio is generally better, the magnitude of the ratio isn't as easily interpretable as the Sharpe Ratio.  It's more about comparing ratios than looking at an absolute value.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong> <u> 3.4. The Treynor Ratio </u> </strong>:</h3>
+        <p>The Treynor Ratio measures the excess return per unit of systematic risk (beta), making it particularly useful for diversified portfolios. evaluates how well a portfolio compensates for market risk. A higher ratio indicates better performance relative to market risk. It is best used for well-diversified portfolios where unsystematic risk is minimal. It has the following formula:</p>
+        $$ Treynor \; Ratio = \frac{R_p-R_f}{\beta_p} $$
+
+        <p>where:</p>
+        <ul>
+            <li>\(R_p\) is portfolio return (same as in the Sharpe Ratio).</li>
+            <li>\(R_f\) is the risk-free rate (e.g., Treasury bills).</li>
+            <li>\(\beta_p\) is the beta of the portfolio, which measures the sensitivity of the portfolio's returns to changes in the market return.  A beta of 1 means the portfolio's returns tend to move in line with the market.  A beta greater than 1 means the portfolio is more volatile than the market, and a beta less than 1 means it's less volatile.</li>
+        </ul>
+
+        <p>Limitations:</p>
+        <ol>
+            <li>It relies on beta, which assumes a linear relationship between the portfolio and the market.</li>
+            <li>It is not suitable for portfolios with significant unsystematic risk.</li>
+        </ol>
+        <p><u>Treynor Ratio vs. Sharpe Ratio:</u></p>
+
+        <p>The key difference between the Treynor and Sharpe Ratios is how they measure risk. The Sharpe Ratio uses total risk (standard deviation), while the Treynor Ratio uses systematic risk (beta). As a rule of thumb:</p>
+        <ul>
+            <li>Use the Sharpe Ratio for evaluating the performance of a total portfolio (or a portfolio that isn't fully diversified).</li>
+            <li>Use the Treynor Ratio for evaluating the performance of a well-diversified portfolio.</li>
+        </ul>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong> <u> 3.5. The Information Ratio </u> </strong>:</h3>
+        <p>The Information Ratio measures the excess return of a portfolio relative to a benchmark, adjusted for tracking error (volatility of excess returns). It assesses the consistency of outperformance relative to a benchmark. A higher ratio indicates better risk-adjusted performance compared to the benchmark. It can be defined as:</p>
+        $$ Information \; Ratio = \frac{R_p-R_b}{\sigma_{p-b}} $$
+
+        <p>where:</p>
+        <ul>
+            <li>\(R_p\) is portfolio return (same as in the Sharpe Ratio).</li>
+            <li>\(R_b\) is the benchmark return. This could be a broad market index (like the S&P 500, which was used here) or a more specific index relevant to the portfolio's investment strategy.</li>
+            <li>\(\sigma_{p-b}\) is the standard deviation of the excess return (tracking error)</li>
+        </ul>
+
+        <p><strong><em>Why Use the S&P 500 as a Benchmark?</em></strong> The S&P 500 is a widely used benchmark for investment performance, especially for US equity portfolios. It tracks the performance of 500 large-cap US companies, representing a significant portion of the overall US stock market capitalization.  It's generally considered a good proxy for the overall market's performance.</p>
+
+
+        <p>Limitations:</p>
+        <ol>
+            <li>It is highly dependent on the choice of benchmark. A different benchmark can result in a different Information Ratio for the same portfolio.  It's crucial to select a benchmark that is appropriate for the portfolio's investment strategy.</li>
+            <li>It doesn't measure the total risk of the portfolio. It only measures the risk relative to the benchmark.  A portfolio with a high IR could still be quite risky in absolute terms.</li>
+            <li>it only considers excess returns relative to the benchmark.  It doesn't provide information about the portfolio's absolute return or its risk relative to other investments.</li>
+        </ol>
+
+        <p><u>Information Ratio vs. Other Ratios:</u></p>
+        <ul>
+            <li><strong>Sharpe Ratio</strong>: The Sharpe Ratio measures risk-adjusted return relative to the risk-free rate, while the Information Ratio measures risk-adjusted excess return relative to a benchmark.</li>
+            <li><strong>Treynor Ratio</strong>: The Treynor Ratio measures risk-adjusted return relative to systematic risk (beta), while the Information Ratio measures risk-adjusted excess return relative to a benchmark and its associated tracking error.</li>
+        </ul>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong> <u> 3.6. The Ulcer Index </u> </strong>:</h3>
+        <p>The Ulcer Index is a unique risk measure that focuses specifically on the pain of experiencing drawdowns.  It quantifies the depth and duration of these drawdowns, giving a sense of the "unease" or "ulcer" that investors might feel during periods of market decline. A lower index indicates fewer and shallower drawdowns, which is preferable for risk-averse investors. Its formula is written as:</p>
+        $$ Ulcer \; Index = \sqrt{\frac{\sum_{i=1}^{n}D_i^2}{n}} $$
+
+        <p>where:</p>
+        <ul>
+            <li>\(D_i\) is the drawdown, or in opther words: the percentage decline from the peak. Imagine an investment reaches a high point, then declines.  The drawdown is the percentage difference between that peak and the current, lower value.  It's important to note that the Ulcer Index only considers drawdowns from previous peaks, not relative to the initial investment value.</li>
+            <li>\(n\) is the number of periods.</li>
+        </ul>
+
+
+        <p>Limitations:</p>
+        <ol>
+            <li> It does not consider the frequency of drawdowns. Two investments could have the same Ulcer Index, but one might have frequent small drawdowns, while the other has infrequent but large drawdowns.  Risk-averse investors might have different preferences for these two scenarios.</li>
+            <li>It ignores upside volatility which some investors might view as a missed opportunity.</li>
+            <li>The drawdowns are calculated relative to previous peaks, not the initial investment value.  This means that the Ulcer Index can be influenced by short-term fluctuations even within a longer-term decline.</li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+
+        <h3><strong> <u> 3.7. The Sterling Ratio </u> </strong>:</h3>
+        <p>The Sterling Ratio is a risk-adjusted performance measure that focuses on the average return relative to the average drawdown. It evaluates the return per unit of drawdown risk. It answers the question: "How much return am I getting for the drawdown risk I'm taking, on average?"  A higher Sterling Ratio is generally better, indicating that the investment has generated more return for the level of drawdown risk experienced. A higher ratio indicates better performance relative to drawdowns. Its formula is:</p>
+        $$ Sterling \; Ratio = \frac{R_p}{Average \; Drawdown} $$
+
+        <p>where:</p>
+        <ul>
+            <li>\(R_p\) is the total return of the portfolio over the period being considered.</li>
+            <li>\(Average \; Drawdown\) is the average of the maximum drawdowns over a period. It's important to note that you first identify the maximum drawdown within each sub-period (e.g., each year, each quarter), and then calculate the average of these maximum drawdowns. Thus, comparing Sterling Ratios across investments can be tricky if the investments have different investment horizons or if the average drawdowns are calculated using different time periods.</li>
+        </ul>
+
+
+        <p>Limitations:</p>
+        <ol>
+            <li>It is sensitive to the method used to calculate average drawdowns. Different methods (e.g., using annual maximum drawdowns vs. monthly maximum drawdowns) can lead to different Sterling Ratios for the same investment.  It is important to be consistent in the method used.<li>
+            <li>Like the Ulcer Index, the Sterling Ratio doesn't consider the frequency of drawdowns.  It only looks at the average of the maximum drawdowns.  An investment with frequent small drawdowns could have a similar Sterling Ratio to an investment with infrequent but large drawdowns.</li>
+        </ol>
+
+        <p><u>Sterling Ratio vs. Other Risk Measures:</u></p>
+        <ul>
+            <li><strong>Sharpe Ratio</strong>: The Sharpe Ratio uses standard deviation (total volatility) as the risk measure, while the Sterling Ratio uses average drawdown.</li>
+            <li><strong>Ulcer Index</strong>: Both the Ulcer Index and the Sterling Ratio focus on drawdowns, but the Ulcer Index considers the duration of drawdowns, while the Sterling Ratio averages the maximum drawdowns.</li>
+        </ul>
+        <br>
+
+        <h2>4. Results and Discussion</h2>
+        <p>The results can be summarized in the following two tables below:</p>
+        <section>
+            <p><u>Portfolio Performance Analysis</u>:</p>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Portfolio</th>
+                        <th>Annual Return</th>
+                        <th>Volatility</th>
+                        <th>Sharpe Ratio</th>
+                        <th>Sortino Ratio</th>
+                        <th>Omega Ratio</th>
+                        <th>Treynor Ratio</th>
+                        <th>Information Ratio</th>
+                        <th>Ulcer Index</th>
+                        <th>Sterling Ratio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Equal-weighted</td>
+                        <td>0.2267</td>
+                        <td>0.2066</td>
+                        <td>0.8554</td>
+                        <td>1.0425</td>
+                        <td>0.0017</td>
+                        <td>0.198</td>
+                        <td>1.0198</td>
+                        <td>0.0639</td>
+                        <td>4.1592</td>
+                    </tr>
+                    <tr>
+                        <td>Min Volatility</td>
+                        <td>0.1289</td>
+                        <td>0.1649</td>
+                        <td>0.4781</td>
+                        <td>0.6195</td>
+                        <td>0.0013</td>
+                        <td>0.1366</td>
+                        <td>-0.0878</td>
+                        <td>0.0483</td>
+                        <td>2.3131</td>
+                    </tr>
+                    <tr>
+                        <td>Max Sharpe</td>
+                        <td>0.3802</td>
+                        <td>0.2761</td>
+                        <td>1.1961</td>
+                        <td>1.6666</td>
+                        <td>0.0022</td>
+                        <td>0.359</td>
+                        <td>1.225</td>
+                        <td>0.1</td>
+                        <td>4.4992</td>
+                    </tr>
+                    <tr>
+                        <td>Risk Parity</td>
+                        <td>0.2995</td>
+                        <td>0.2697</td>
+                        <td>0.925</td>
+                        <td>1.1568</td>
+                        <td>0.0026</td>
+                        <td>0.2206</td>
+                        <td>1.2762</td>
+                        <td>0.0846</td>
+                        <td>4.5093</td>
+                    </tr>
+                    <tr>
+                        <td>Momentum</td>
+                        <td>0.3249</td>
+                        <td>0.252</td>
+                        <td>1.091</td>
+                        <td>1.4668</td>
+                        <td>0.0018</td>
+                        <td>0.2804</td>
+                        <td>1.3054</td>
+                        <td>0.1081</td>
+                        <td>3.7819</td>
+                    </tr>
+                    <tr>
+                        <td>Monte Carlo</td>
+                        <td>0.372</td>
+                        <td>0.2838</td>
+                        <td>1.1344</td>
+                        <td>1.5656</td>
+                        <td>0.0026</td>
+                        <td>0.3284</td>
+                        <td>1.2019</td>
+                        <td>0.1057</td>
+                        <td>4.1396</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <p><u>Optimal Portfolio Weights</u></p>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Equal-weighted</th>
+                        <th>Min Volatility</th>
+                        <th>Max Sharpe</th>
+                        <th>Risk Parity</th>
+                        <th>Momentum</th>
+                        <th>Monte Carlo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MSFT</td>
+                        <td>0.1</td>
+                        <td>0</td>
+                        <td>0.0897</td>
+                        <td>0.1694</td>
+                        <td>0.2</td>
+                        <td>0.0288</td>
+                    </tr>
+                    <tr>
+                        <td>AAPL</td>
+                        <td>0.1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0.1818</td>
+                        <td>0</td>
+                        <td>0.0394</td>
+                    </tr>
+                    <tr>
+                        <td>GOOGL</td>
+                        <td>0.1</td>
+                        <td>0.0557</td>
+                        <td>0.0191</td>
+                        <td>0.172</td>
+                        <td>0.2</td>
+                        <td>0.0352</td>
+                    </tr>
+                    <tr>
+                        <td>TSLA</td>
+                        <td>0.1</td>
+                        <td>0.3308</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0.04</td>
+                    </tr>
+                    <tr>
+                        <td>JNJ</td>
+                        <td>0.1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0.1687</td>
+                        <td>0</td>
+                        <td>0.052</td>
+                    </tr>
+                    <tr>
+                        <td>PFE</td>
+                        <td>0.1</td>
+                        <td>0.0772</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0.0467</td>
+                    </tr>
+                    <tr>
+                        <td>XOM</td>
+                        <td>0.1</td>
+                        <td>0.1855</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0.2</td>
+                        <td>0.0285</td>
+                    </tr>
+                    <tr>
+                        <td>CVX</td>
+                        <td>0.1</td>
+                        <td>0.0138</td>
+                        <td>0.3034</td>
+                        <td>0.1376</td>
+                        <td>0.2</td>
+                        <td>0.3306</td>
+                    </tr>
+                    <tr>
+                        <td>WMT</td>
+                        <td>0.1</td>
+                        <td>0.2505</td>
+                        <td>0.4813</td>
+                        <td>0</td>
+                        <td>0.2</td>
+                        <td>0.2942</td>
+                    </tr>
+                    <tr>
+                        <td>PG</td>
+                        <td>0.1</td>
+                        <td>0.0864</td>
+                        <td>0.1065</td>
+                        <td>0.1705</td>
+                        <td>0</td>
+                        <td>0.1046</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <p><strong><i><u>Observations on the tables above</u></i></strong>:</p>
+        <p><strong><u>A. Performance Analysis</u></strong>:</p>
+        <ol>
+          <li><strong>Return</strong>: The Maximum Sharpe Ratio (Max Sharpe) and Monte Carlo portfolios exhibit the highest annual returns, followed closely by the Risk Parity and Momentum portfolios. The Minimum Volatility portfolio has the lowest return, which is expected as it prioritizes minimizing risk over maximizing returns. The Equal-weighted portfolio falls in the middle range.</li>
+
+          <p><strong>Volatility</strong>: As expected, the Minimum Volatility portfolio has the lowest volatility. The Max Sharpe and Monte Carlo portfolios have the highest volatility, reflecting their pursuit of higher returns. Risk Parity and Momentum fall in between. The Equal-weighted portfolio also has middle-of-the-road volatility.</p>
+
+          <li><strong>Sharpe Ratio</strong>: The Max Sharpe portfolio has the highest Sharpe Ratio, which is expected since it was designed to maximize this metric. The Monte Carlo portfolio, which also attempts to maximize the Sharpe Ratio, comes in a close second. The Risk Parity, Equal-weighted, and Momentum portfolios follow, and the Minimum Volatility portfolio has the lowest Sharpe Ratio.</li>
+
+          <li><strong>Sortino Ratio</strong>: The Sortino Ratio, which focuses on downside risk, paints a similar picture to the Sharpe Ratio.Max Sharpe (1.6666) and Monte Carlo (1.5733) perform well, indicating strong returns relative to downside risk, on the other hand, Min Volatility (0.6195) again underperforms due to its low returns.</li>
+
+          <li><strong>Omega Ratio</strong>: Monte Carlo (0.005) and Risk Parity (0.0026) have the highest Omega Ratios, suggesting better probability-weighted gains relative to losses, while Equal-weighted (0.0017) and Minimum Volatility (0.0013) portfolios have the lowest Omega Ratios.</li>
+
+          <li><strong>Treynor Ratio</strong>: Which shows excess return per unit of market risk, had Max Sharpe (0.359) and Monte Carlo (0.3408) deliver the highest Treynor Ratios, indicating strong performance relative to market risk, while Minimum Volatility (0.1366) has the lowest Treynor Ratio.</li>
+
+          <li><strong>Information Ratio</strong>: The Momentum (1.3054) and Risk Parity (1.2762) portfolios have the highest Information Ratios, indicating strong outperformance relative to a benchmark. The Minimum Volatility (-0.0878) portfolio underperforms the benchmark.</li>
+
+          <li><strong>Ulcer Index</strong>: The Minimum Volatility (0.0483) portfolio has the lowest Ulcer Index, reflecting its focus on reducing drawdown severity. The Monte Carlo (0.1355) and Momentum (0.1081) portfolios have the highest Ulcer Index, consistent with their higher-risk strategies.</li>
+
+          <li><strong>Sterling Ratio</strong>: The Risk Parity (4.5093) and Max Sharpe (4.4992) portfolios have the highest Sterling Ratios, showing strong returns relative to drawdowns. The Monte Carlo (3.3948) portfolio has the lowest Sterling Ratio, as its high returns come with significant drawdowns.</strong></li>
+        </ol>
+
+        <p><strong><u>B. Weight Allocation</u></strong>:</p>
+        <ol>
+        <li><strong>Equal-weighted</strong>: As the name suggests, this portfolio assigns an equal weight (10%) to each of the 10 assets.</li>
+
+        <li><strong>Minimum Volatility</strong>: This portfolio heavily favors TSLA, followed by WMT, XOM, and PFE. It avoids MSFT, AAPL, and JNJ entirely, likely due to their higher volatility or correlation with other assets.</li>
+
+        <li><strong>Max Sharpe</strong>: This portfolio concentrates its weights in CVX and WMT, with a small allocation to MSFT and PG. Other assets receive no allocation, suggesting these two assets offer the best risk-adjusted returns.</li>
+
+        <li><strong>Risk Parity</strong>: This portfolio has a more balanced allocation, spreading weights across several assets.</p>
+
+        <li><strong>Momentum</strong>: This portfolio invests only in XOM, CVX, WMT, and MSFT, which are the stocks with the highest recent momentum.</li>
+
+        <li><strong>Monte Carlo</strong>: This portfolio also has a relatively concentrated allocation, though it differs from the Max Sharpe portfolio.</li>
+        </ol>
+        <br />
+
+        <h2><strong>5. Conclusion</strong>:</h2>
+
+        <p>The analysis highlights the classic trade-off between risk and return, with higher-return portfolios like <strong>Max Sharpe</strong> and <strong>Monte Carlo</strong> exhibiting greater volatility and drawdowns. These portfolios deliver the best risk-adjusted performance (Sharpe, Sortino, Treynor Ratios) but are better suited for aggressive investors. On the other hand, the <strong>Minimum Volatility</strong> portfolio is ideal for risk-averse investors, offering the lowest risk and drawdowns, albeit with lower returns. For a balanced approach, the <strong>Risk Parity</strong> portfolio stands out, providing strong risk-adjusted returns and moderate drawdowns. The <strong>Momentum</strong> portfolio, while high-performing, is also high-risk, making it suitable for aggressive investors. The <strong>Equal-weighted</strong> portfolio, though simple and diversified, underperforms in risk-adjusted metrics compared to optimized strategies. Ultimately, there is no one-size-fits-all solution; the "best" portfolio depends on an investor's specific goals, risk tolerance, and time horizon.</p>
+
+        <p><strong><u>Recommendations</u></strong></p>
+        <ul>
+            <li><strong>For Conservative Investors</strong>: Use Min Volatility to prioritize capital preservation.</li>
+            <li><strong>For Balanced Investors</strong>: Use Risk Parity or Max Sharpe for optimal risk-adjusted returns.</li>
+            <li><strong>For Aggressive Investors</strong>: Use Momentum or Monte Carlo to maximize returns, accepting higher risk.</li>
+            <li><strong>For Passive Investors</strong>: Use Equal-weighted for simplicity and diversification, but be aware of its limitations.</li>
+        </ul>
+
+        <p>Each portfolio has trade-offs, and the choice depends on the investor’s risk tolerance, return expectations, and investment horizon. Combining strategies (e.g., using <strong>Risk Parity</strong> for core holdings and <strong>Momentum</strong> for satellite allocations) can also be effective.</p>
+        <br />
+
+        <h2><strong>References</strong>:</h2>
+        <p>Markowitz, H. (1952). Portfolio selection. The Journal of Finance, 7(1), 77–91. https://doi.org/10.1111/j.1540-6261.1952.tb01525.x</p>
+        <p>Sharpe, W. F. (1966). Mutual fund performance. The Journal of Business, 39(1), 119–138. https://doi.org/10.1086/294846</p>
+        <p>Sortino, F. A., & Price, L. N. (1994). Performance measurement in a downside risk framework. The Journal of Investing, 3(3), 59–64. https://doi.org/10.3905/joi.1994.408447</p>
+        <p>Keating, C., & Shadwick, W. F. (2002). A universal performance measure. The Journal of Performance Measurement, 6(3), 59–84. </p>
+        <p>Treynor, J. L. (1965). How to rate management of investment funds. Harvard Business Review, 43(1), 63–75.</p>
+        <p>Qian, E. (2005). Risk parity portfolios: Efficient portfolios through true diversification. PanAgora Asset Management.</p>
+        <p>Jegadeesh, N., & Titman, S. (1993). Returns to buying winners and selling losers: Implications for stock market efficiency. The Journal of Finance, 48(1), 65–91. https://doi.org/10.1111/j.1540-6261.1993.tb04702.x </p>
+        <p>Metropolis, N., & Ulam, S. (1949). The Monte Carlo method. Journal of the American Statistical Association, 44(247), 335–341. https://doi.org/10.1080/01621459.1949.10483310</p>
+        <p>Fabozzi, F. J., Kolm, P. N., Pachamanova, D. A., & Focardi, S. M. (2007). Robust portfolio optimization and management. John Wiley & Sons.</p>
+        <p>Grinold, R. C., & Kahn, R. N. (2000). Active portfolio management: A quantitative approach for producing superior returns and selecting superior returns and controlling risk (2nd ed.). McGraw-Hill.</p>
+        <p>Martin, J. D., & McCann, B. (1989). The investor’s guide to Fidelity funds: Winning strategies for mutual fund investors. John Wiley & Sons.</p>
+        <p>Kritzman, M., & Page, S. (2003). The hierarchy of investment choice. Financial Analysts Journal, 59(4), 24–33. https://doi.org/10.2469/faj.v59.n4.2547</p>
+        <p>Haugen, R. A., & Baker, N. L. (1991). The efficient market inefficiency of capitalization-weighted stock portfolios. The Journal of Portfolio Management, 17(3), 35–40. https://doi.org/10.3905/jpm.1991.409335</p>
+        <p>Michaud, R. O., & Michaud, R. O. (2008). Efficient asset management: A practical guide to stock portfolio optimization and asset allocation (2nd ed.). Oxford University Press.</p>
+        <p>Géron, A. (2019). Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow (2nd ed.). O’Reilly Media.</p>
 
       </div>
       <div class="modal-footer">
