@@ -281,6 +281,7 @@ a:hover {
 .modal-title {
   font-family: "Times New Roman", Times, serif;
   font-size: 2rem;
+  margin-top: 30px;
   margin-bottom: 20px;
   text-align: center;
   color: #ff6f61; /* Accent color for the title */
