@@ -288,18 +288,30 @@ a:hover {
 
 .modal-body {
   font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.6;
-    margin-left: 20px;
+  line-height: 1.65;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.modal-body h2 {
+  margin: 1.8em 0 0.6em;
+}
+
+.modal-body p {
+  margin-bottom: 1.1em; 
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 700px) {
+  .modal-body p { text-align: justify; }
 }
 
 .modal-body h3 {
   margin-top: 20px;
   margin-bottom: 10px;
   color: #ffffff; /* Accent color for headings */
-}
-
-.modal-body p {
-  margin-bottom: 15px;
 }
 
 .modal-body ul li {
