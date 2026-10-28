@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Konstantinos Kirillov: A showcase of projects.">
   <title>Konstantinos Kirillov</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <!-- Add Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -20,43 +19,39 @@
       </video>
     </div>
 
-    <!-- Header Content (Name and Navigation) -->
     <div class="header-content">
-      <!-- Top Left: Name -->
       <div class="top-left">
         <h2><a href="#head">Konstantinos Kirillov</a></h2>
       </div>
 
-      <!-- Top Right: Navigation -->
       <nav class="top-right">
         <ul>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="cv.html">CV</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
 
-    <!-- Minimalistic Message (Centered in the video) -->
     <div class="video-message">
       <h1>Data, Code and Everything in Between</h1>
-      <!-- Scroll Button -->
       <a href="#projects" class="scroll-button">VIEW MY WORK</a>
     </div>
   </header>
 
-  <!-- Main Content -->
   <main>
     <section id="projects" class="projects">
       <div class="container">
         <h2>Projects</h2>
         <div class="project-grid">
+
           <!-- Project 1 -->
           <div class="project-card">
             <div class="project-icon">
-              <div class="project-flair">Bayes • R • WinBUGS</div>
+              <div class="project-flair">Bayes</div>
               <i class="fas fa-wine-glass-alt"></i>
             </div>
-            <h3>Choosing the Best Physiochemical Properties in a Strain of Red Wine</h3>
+            <h3>Choosing the Best Physicochemical Properties in a Strain of Red Wine</h3>
             <p>A study applying Variable Selection on Multinomial Logistic Regression through Bayesian Adaptive Sampling.</p>
             <a href="#" class="project-link" data-modal="modal1">View Details</a>
           </div>
@@ -75,7 +70,7 @@
           <!-- Project 3 -->
           <div class="project-card">
             <div class="project-icon">
-              <div class="project-flair">NLP • ML • Python</div>
+              <div class="project-flair">NLP • ML</div>
               <i class="fab fa-twitter"></i>
             </div>
             <h3>Classifying Disaster Tweets</h3>
@@ -86,7 +81,7 @@
           <!-- Project 4 -->
           <div class="project-card">
             <div class="project-icon">
-              <div class="project-flair">Finance • Python</div>
+              <div class="project-flair">Finance</div>
               <i class='fas fa-money-bill'></i>
             </div>
             <h3>Comparative Analysis of Performance Ratios for Optimal Portfolio Selection</h3>
@@ -97,7 +92,7 @@
           <!-- Project 5 -->
           <div class="project-card">
             <div class="project-icon">
-              <div class="project-flair">Web-Scraping • R • Python</div>
+              <div class="project-flair">Web-Scraping</div>
               <i class="fab fa-linkedin"></i>
             </div>
             <h3>Which Statistical and Data Science Tools Do Employers Ask For?</h3>
@@ -121,17 +116,15 @@
     </section>
   </main>
 
-  <!-- Modals for Project Details -->
-  <div id="modal1" class="modal">
+  <div id="modal1" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal1-title">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 class="modal-title">Choosing the Best Physiochemical Properties in a Strain of Red Wine</h2>
+      <button type="button" class="close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="modal1-title">Choosing the Best Physicochemical Properties in a Strain of Red Wine</h2>
       <div class="modal-body">
         <br />
         <hr />
         <h2>Abstract</h2>
         <p>This paper explores the application of Bayesian statistical methods in identifying the most influential physiochemical properties of red "Vinho Verde" wine. Using a dataset comprising 1599 observations and 11 physiochemical characteristics, we employ a multinomial logistic regression model with Bayesian variable selection techniques to determine the optimal combination of properties that contribute to higher wine quality scores. The results reveal that alcohol content, sulphates, and free sulfur dioxide have a significant positive impact on wine quality, whereas volatile acidity, chlorides, and total sulfur dioxide are negatively correlated with quality.</p>
-        <hr />
         <hr />
         <br />
 
@@ -192,7 +185,7 @@
         <p>Here the main assumption is that all models \(\gamma\) (where \(\gamma_j=1\) if predictor \(j\) is included) are equally likely:</p>
         $$ p(\gamma) = \frac{1}{2^m} \qquad (for \; m=11 \; predictions) $$
 
-        <p><u><i>b. Beta-Binomial Prior:</i></u><p>
+        <p><u><i>b. Beta-Binomial Prior:</i></u></p>
         <p>A beta-binomial prior introduces sparsity by penalizing model size:</p>
         $$ \pi \sim Beta(1,b), \gamma_i \sim Bernoulli(\pi) $$
         <p>where \(\beta = \frac{a}{2}-1=0.5\) (with \(a=3\)). Marginalizing over \(\pi\), the prior probability of a model with \(p_\gamma\)​ predictors is:</p>
@@ -265,16 +258,15 @@
     </div>
   </div>
 
-  <div id="modal2" class="modal">
+  <div id="modal2" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal2-title">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 class="modal-title">Web-Scraping for LinkedIn</h2>
+      <button type="button" class="close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="modal2-title">Web-Scraping for LinkedIn</h2>
       <div class="modal-body">
         <br />
         <hr />
         <h2>Abstract</h2>
         <p>Web scraping is an automated technique for extracting structured data from web pages. This methodology leverages the hierarchical nature of web documents, which are typically composed of HTML, CSS, and JavaScript. The objective of this study is to explore efficient web scraping techniques for extracting employment related data from LinkedIn.</p>
-        <hr />
         <hr />
         <br />
 
@@ -300,15 +292,9 @@
         <br />
 
         <h2>4. Results</h2>
-        </br>
-        <img src="Word Cloud.png" alt="Results Graph" style="
-            height: 200;
-            width: 200;
-            border: 3px solid #ff6f61;
-            border-radius: 10px;
-            margin: 10px auto;
-            display: block;">
-        </br>
+        <br>
+        <img src="Word Cloud.png" alt="Results Graph" style="width: 100%; max-width: 360px; height: auto; border: 3px solid #ff6f61; border-radius: 10px; margin: 10px auto; display: block;">
+        <br>
             <p><u><i>Some words about the graph above:</i></u></p>
             <p>As we can gather from the word-cloud above, the most popular data science and statistics software in 2025 is still Python, followed closely by SQL and R as far as the firms are concerned. It should come as no surprise as these are the tools most frequently mentioned both in businesses and in academia due to their simplicity in use, their ability to use powerful packages and versatility in presenting and visualizing the data. Plus, they require no subscription or fee, which is yet another incentive for any skeptical company or school. Tableau and PowerBI come right next to them, and these are proprietary software that were built with a main goal to help workers visualize and summarize the data given in a fast and easy way. These arguably have a more intuitive interface than the previous three mentioned and they do not need any programming knowledge to use them. They both have a free (or public) version of their respective software, but are, of course, more limited to what they can do when compared to the full versions. Perhaps the companies do not endorse them as much as others due to their monthly subscription.</p>
 
@@ -319,16 +305,15 @@
     </div>
   </div>
 
-  <div id="modal3" class="modal">
+  <div id="modal3" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal3-title">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 class="modal-title">Predicting Disaster Tweets</h2>
+      <button type="button" class="close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="modal3-title">Predicting Disaster Tweets</h2>
       <div class="modal-body">
         <br />
         <hr />
         <h2>Abstract</h2>
         <p>Natural Language Processing (NLP) leverages statistical methodologies to enable machines to understand, generate, and manipulate human language. The study pairs an NLP approach called TF-IDF with Random Forest Classification, and afterwards, evaluates their efficacy in tweet classification.</p>
-        <hr />
         <hr />
         <br>
 
@@ -499,16 +484,15 @@
     </div>
   </div>
 
-  <div id="modal4" class="modal">
+  <div id="modal4" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal4-title">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 class="modal-title">Comparative Analysis of Performance Ratios for Optimal Portfolio Selection</h2>
+      <button type="button" class="close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="modal4-title">Comparative Analysis of Performance Ratios for Optimal Portfolio Selection</h2>
       <div class="modal-body">
         <br />
         <hr />
         <h2>Abstract</h2>
         <p>This study conducts a comprehensive evaluation of various portfolio optimization strategies using historical stock data to identify the most effective approaches for maximizing returns while minimizing risk. We analyze six distinct strategies: <strong>Equal-Weighted</strong>, <strong>Minimum Volatility</strong>, <strong>Maximum Sharpe Ratio</strong>, <strong>Risk Parity</strong>, <strong>Momentum</strong>, and <strong>Monte Carlo Simulation-Based</strong> portfolios. Key performance metrics, including <strong>Annualized Return</strong>, <strong>Volatility</strong>, <strong>Sharpe Ratio</strong>, and <strong>Sortino Ratio</strong>, are employed to assess their effectiveness. The findings reveal that <strong>Momentum</strong> and <strong>Maximum Sharpe Ratio</strong> portfolios consistently outperform traditional <strong>Equal-Weighted</strong> strategies, particularly under specific market conditions. This research underscores the importance of advanced optimization techniques in achieving superior risk-adjusted returns.</p>
-        <hr />
         <hr />
         <br>
 
@@ -1072,7 +1056,7 @@
         <ol>
           <li><strong>Return</strong>: The Maximum Sharpe Ratio (Max Sharpe) and Monte Carlo portfolios exhibit the highest annual returns, followed closely by the Risk Parity and Momentum portfolios. The Minimum Volatility portfolio has the lowest return, which is expected as it prioritizes minimizing risk over maximizing returns. The Equal-weighted portfolio falls in the middle range.</li>
 
-          <p><strong>Volatility</strong>: As expected, the Minimum Volatility portfolio has the lowest volatility. The Max Sharpe and Monte Carlo portfolios have the highest volatility, reflecting their pursuit of higher returns. Risk Parity and Momentum fall in between. The Equal-weighted portfolio also has middle-of-the-road volatility.</p>
+          <li><strong>Volatility</strong>: As expected, the Minimum Volatility portfolio has the lowest volatility. The Max Sharpe and Monte Carlo portfolios have the highest volatility, reflecting their pursuit of higher returns. Risk Parity and Momentum fall in between. The Equal-weighted portfolio also has middle-of-the-road volatility.</li>
 
           <li><strong>Sharpe Ratio</strong>: The Max Sharpe portfolio has the highest Sharpe Ratio, which is expected since it was designed to maximize this metric. The Monte Carlo portfolio, which also attempts to maximize the Sharpe Ratio, comes in a close second. The Risk Parity, Equal-weighted, and Momentum portfolios follow, and the Minimum Volatility portfolio has the lowest Sharpe Ratio.</li>
 
@@ -1086,7 +1070,7 @@
 
           <li><strong>Ulcer Index</strong>: The Minimum Volatility (0.0483) portfolio has the lowest Ulcer Index, reflecting its focus on reducing drawdown severity. The Monte Carlo (0.1355) and Momentum (0.1081) portfolios have the highest Ulcer Index, consistent with their higher-risk strategies.</li>
 
-          <li><strong>Sterling Ratio</strong>: The Risk Parity (4.5093) and Max Sharpe (4.4992) portfolios have the highest Sterling Ratios, showing strong returns relative to drawdowns. The Monte Carlo (3.3948) portfolio has the lowest Sterling Ratio, as its high returns come with significant drawdowns.</strong></li>
+          <li><strong>Sterling Ratio</strong>: The Risk Parity (4.5093) and Max Sharpe (4.4992) portfolios have the highest Sterling Ratios, showing strong returns relative to drawdowns. The Monte Carlo (3.3948) portfolio has the lowest Sterling Ratio, as its high returns come with significant drawdowns.</li>
         </ol>
 
         <p><strong><u>B. Weight Allocation</u></strong>:</p>
@@ -1097,7 +1081,7 @@
 
         <li><strong>Max Sharpe</strong>: This portfolio concentrates its weights in CVX and WMT, with a small allocation to MSFT and PG. Other assets receive no allocation, suggesting these two assets offer the best risk-adjusted returns.</li>
 
-        <li><strong>Risk Parity</strong>: This portfolio has a more balanced allocation, spreading weights across several assets.</p>
+        <li><strong>Risk Parity</strong>: This portfolio has a more balanced allocation, spreading weights across several assets.</li>
 
         <li><strong>Momentum</strong>: This portfolio invests only in XOM, CVX, WMT, and MSFT, which are the stocks with the highest recent momentum.</li>
 
@@ -1144,63 +1128,62 @@
     </div>
   </div>
 
-  <div id="modal5" class="modal">
+  <div id="modal5" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal5-title">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 class="modal-title">Which Statistical Tools Do Data Jobs Ask for?</h2>
+      <button type="button" class="close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="modal5-title">Which Statistical Tools Do Data Jobs Ask for?</h2>
       <div class="modal-body">
         <hr style="margin-bottom: 0.5em;" />
-		<h2 style="margin-top: 0.5em;>Abstract</h2>
+		<h2 style="margin-top: 0.5em;">Abstract</h2>
         <p>How does one measure popularity? As part of my thesis and in order to look at the general demand for statistical tools for statisticians I thought to look for it in job advertisements, because frankly, if a tool is popular then it must be sought-after almost everywhere. So I've built (and later upgraded) a web-scraper which scours LinkedIn and catalogues the 35 statistical tools that advertisements ask for. Now to be fair, I had limited my search to Europe because at first I gathered the data by hand and time was of the essence. Since then however I run this program once a year on New Years Eve and get a measurement which demonstrates how the demand for software fluctuates.</p>
-        <hr />
         <hr />
 
         <h2>1. How It Works</h2>
-        <p>It uses an algorithm which enters the website and searches for results from within its search functions. After scrolling down and pressing all the necessary buttons as much as it can thus extneding our search results (it's not perfect), it gathers all the data and through regex functions isolates the statistical tools that we look for. If it gets too many errors it stops, but all-in-all I'd say it works pretty good and does a 10-day job within an hour.</p>
+        <p>It uses an algorithm which enters the website and searches for results from within its search functions. After scrolling down and pressing all the necessary buttons as much as it can thus extending our search results (it's not perfect), it gathers all the data and through regex functions isolates the statistical tools that we look for. If it gets too many errors it stops, but all-in-all I'd say it works pretty good and does a 10-day job within an hour.</p>
 
         <h2>2. LinkedIn Postings for the European Region (2022–2026):</h2>
         <p>Now let us see how popularity has changed since 2022 by looking at the following graphs:</p>
 
         <!-- Two charts side by side, same size (they stack automatically on narrow screens) -->
-        <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: flex-start; margin: 10px 0;">
+        <div class="chart-row">
 
-          <figure style="flex: 1 1 320px; max-width: 480px; margin: 0; text-align: center;">
-               <a href="Yearly Trends.jpeg" target="_blank" title="Click to open full size">
+          <figure class="chart-figure">
+               <a href="Yearly Trends.jpeg" target="_blank" rel="noopener" title="Click to open full size">
                <img src="Yearly Trends.jpeg"
                    alt="Line chart of the share of job ads mentioning each of the 35 tools, one line per year from 2022 to 2026"
-                   style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #fff; border: 3px solid #ff6f61; border-radius: 10px; padding: 4px; box-sizing: border-box;">
+                   class="chart-img">
                </a>
-            <figcaption style="font-size: 0.85rem; font-style: italic; margin-top: 6px;">All 35 tools, one line per year (2022–2026).</figcaption>
+            <figcaption>All 35 tools, one line per year (2022–2026).</figcaption>
           </figure>
 
-         <figure style="flex: 1 1 320px; max-width: 480px; margin: 0; text-align: center;">
-               <a href="Tool Trends.png" target="_blank" title="Click to open full size">
+         <figure class="chart-figure">
+               <a href="Tool Trends.png" target="_blank" rel="noopener" title="Click to open full size">
                <img src="Tool Trends.png"
                      alt="Dumbbell chart of the share of job ads mentioning each of the top 12 tools in 2022 versus 2026"
-                     style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #fff; border: 3px solid #ff6f61; border-radius: 10px; padding: 4px; box-sizing: border-box;">
+                     class="chart-img">
                </a>
-          <figcaption style="font-size: 0.85rem; font-style: italic; margin-top: 6px;">Top 12 tools, 2022 (hollow) vs 2026 (filled).</figcaption>
+          <figcaption>Top 12 tools, 2022 (hollow) vs 2026 (filled).</figcaption>
          </figure>
         </div>
 
 	    <!-- Word cloud below -->
-	    <figure style="margin: 20px auto; text-align: center;">
+	    <figure class="chart-figure chart-figure--single">
             <img src="Word Cloud.png"
                alt="Word cloud of the most frequently mentioned data tools"
-               style="width: 100%; max-width: 360px; height: auto; background: #fff; border: 3px solid #ff6f61; border-radius: 10px; padding: 4px; box-sizing: border-box;">
-           <figcaption style="font-size: 0.85rem; font-style: italic; margin-top: 6px;">Word cloud of tool mentions: bigger word, more ads.</figcaption>
+               class="chart-img chart-img--small">
+           <figcaption>Word cloud of tool mentions: bigger word, more ads.</figcaption>
          </figure>
 
        <p><u><i>Some words about the graphs above:</i></u></p>
        <p> Python is the most popular tool in 2026 (87% of ads, up from 74% in 2022). SQL (63% → 46%) and R (39% → 26%) have declined in relative terms but remain the second and third most-mentioned. AWS and Azure have both increased in mentions within job ads, while legacy tools such as Qlik, Scala and Hive are close to zero. It is surprising that some tools get zero mentions but this is only a part of the internet within a part of the world and so it could be that they are used in academia or other job sites.</p>
-       
+
        <div class="modal-footer">
           <a href="web_scraping.zip" download class="download-button">Download Code</a>
        </div>
      </div>
    </div>
   </div>
-	
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,20 +1,36 @@
-/* Reset some default styles */
+:root {
+  --accent: #ff6f61;
+  --accent-hover: #ff4a3d;
+  --card-bg: #111111;
+  --card-border: #262626;
+  --muted: #bdbdbd;
+}
+
+/* Reset default styles */
 body, h1, h2, ul, li, p {
   margin: 0;
   padding: 0;
 }
 
-/* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #000000; /* Black background */
-  color: #ffffff; /* White text */
+  background-color: #000000;
+  color: #ffffff;
 }
 
-/* Header Styling */
+body.modal-open {
+  overflow: hidden; /* Lock background scroll while a modal is open */
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 header {
   position: relative;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -28,7 +44,6 @@ header {
   z-index: -1; /* Place the video behind other content */
 }
 
-/* Header Content Container */
 .header-content {
   position: absolute;
   top: 20px;
@@ -42,13 +57,11 @@ header {
   transition: all 0.3s ease;
 }
 
-/* Top Left: Name */
 .top-left {
-  color: #ffffff; /* White text */
+  color: #ffffff;
   font-size: 24px;
 }
 
-/* Top Right: Navigation */
 .top-right ul {
   list-style: none;
   display: flex;
@@ -56,16 +69,20 @@ header {
 }
 
 .top-right ul li a {
-  color: #ffffff; /* White text */
+  color: #ffffff;
   text-decoration: none;
   font-size: 18px;
+}
+
+.top-right ul li a:hover {
+  color: var(--accent);
 }
 
 /* Shrink effect on scroll */
 header.shrink .header-content {
   position: fixed;
   top: 0;
-  background: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+  background: rgba(0, 0, 0, 0.9);
   padding: 10px 20px;
   width: 100%;
   box-sizing: border-box;
@@ -76,32 +93,29 @@ header.shrink .top-left h2 {
 }
 
 header.shrink .top-right ul li a {
-  font-size: 16px; /* Smaller font size when shrunk */
+  font-size: 16px; /* Same as above */
 }
 
-/* Video Message Styling */
 .video-message {
   position: absolute;
   top: 50%; /* Center vertically */
   left: 50%; /* Center horizontally */
   transform: translate(-50%, -50%); /* Ensure it's perfectly centered */
   text-align: center;
-  color: #ffffff; /* White text */
-  font-size: 1.5rem; /* Adjust font size as needed */
+  color: #ffffff;
+  font-size: 1.5rem;
   z-index: 1; /* Ensure it's above the video */
-  background-color: rgba(0, 0, 0, 0); /* Optional: Add a semi-transparent background */
-  padding: 20px 30px; /* Optional: Add padding for better readability */
-  border-radius: 10px; /* Optional: Add rounded corners */
-  animation: fadeIn 2s ease-in-out; /* Optional: Add fade-in animation */
+  padding: 20px 30px;
+  border-radius: 10px;
+  animation: fadeIn 2s ease-in-out;
 }
 
-/* Scroll Button Styling */
 .scroll-button {
   display: inline-block;
   margin-top: 20px; /* Space between message and button */
   padding: 10px 20px;
-  background-color: transparent; /* Button color */
-  color: #ffffff; /* White text */
+  background-color: transparent;
+  color: #ffffff;
   text-decoration: none;
   font-size: 1rem;
   border: 1px solid white;
@@ -110,7 +124,7 @@ header.shrink .top-right ul li a {
 }
 
 .scroll-button:hover {
-  background-color: white; /* Darker color on hover */
+  background-color: white;
   color: black;
   text-decoration: none;
   transform: translateY(-5px); /* Slight lift effect */
@@ -118,28 +132,22 @@ header.shrink .top-right ul li a {
 
 /* Fade-in Animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Main Content Styling */
 main {
   padding: 20px;
-  background-color: #000000; /* Black background */
-  color: #ffffff; /* White text */
+  background-color: #000000;
+  color: #ffffff;
 }
 
 section {
   margin-bottom: 40px;
 }
 
-/* Links in main content */
 a {
-  color: #ffffff; /* White text for links */
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -147,7 +155,6 @@ a:hover {
   text-decoration: none;
 }
 
-/* Projects Section */
 .projects {
   padding: 4rem 0;
   background: #000000;
@@ -168,70 +175,88 @@ a:hover {
 }
 
 .project-card {
-  background: #fff;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .project-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(255, 111, 97, 0.15);
 }
 
 .project-icon {
   font-size: 3rem;
-  color: #ff6f61;
+  color: var(--accent);
   margin-bottom: 1rem;
 }
 
 .project-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #333;
+  color: #ffffff;
 }
 
 .project-card p {
   font-size: 1rem;
-  color: #666;
+  color: var(--muted);
   margin-bottom: 1.5rem;
 }
 
-.project-link {
+/* Buttons that share the same look */
+.project-link,
+.link,
+.download-button {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background: #ff6f61;
+  background: var(--accent);
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
   transition: background 0.3s;
 }
 
-.project-link:hover {
-  background: #ff4a3d;
+.project-link:hover,
+.link:hover,
+.download-button:hover {
+  background: var(--accent-hover);
+}
+
+.download-button {
+  padding: 10px 20px;
 }
 
 .link {
-  pointer-events: all; /* Ensure the link is clickable */
-  position: relative; /* Ensure it's not hidden behind other elements */
-  z-index: 1; /* Bring it to the front if needed */
-  text-decoration: none; /* Optional: Remove underline */
-  color: #fff; /* Optional: Inherit text color */
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: #ff6f61;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.3s;
+  position: relative;
+  z-index: 1;
 }
 
-.link:hover {
-  background: #ff4a3d;
+.projects .project-card {
+  position: relative; /* Needed for ositioning of flair */
 }
 
-/* Modal Styling */
+.project-flair {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 111, 97, 0.12);
+  border: 1px solid rgba(255, 111, 97, 0.6);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed;
@@ -239,16 +264,16 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
-  z-index: 1000; /* Ensure it's on top */
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
   justify-content: center;
   align-items: center;
-  opacity: 0; /* Start with 0 opacity */
-  transition: opacity 0.3s ease; /* Smooth fade-in effect */
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .modal.show {
-  opacity: 1; /* Fully visible when modal is shown */
+  opacity: 1;
 }
 
 .modal-content {
@@ -256,26 +281,36 @@ a:hover {
   padding: 20px;
   border-radius: 10px;
   width: 80%;
-  max-width: 800px; /* Wider modal for better readability */
-  max-height: 80vh; /* Limit height to 80% of viewport */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
   position: relative;
   color: #ffffff;
-  transform: scale(0.9); /* Start slightly smaller */
-  transition: transform 0.3s ease; /* Smooth scale effect */
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
 }
 
 .modal.show .modal-content {
-  transform: scale(1); /* Scale to full size when modal is shown */
+  transform: scale(1);
 }
 
+/* Close button (a real <button> so it works with the keyboard) */
 .close {
   position: absolute;
   top: 10px;
   right: 10px;
+  padding: 4px 10px;
+  background: none;
+  border: none;
+  font-family: inherit;
   font-size: 24px;
+  line-height: 1;
   cursor: pointer;
   color: #ffffff;
+}
+
+.close:hover {
+  color: var(--accent);
 }
 
 .modal-title {
@@ -284,7 +319,7 @@ a:hover {
   margin-top: 30px;
   margin-bottom: 20px;
   text-align: center;
-  color: #ff6f61; /* Accent color for the title */
+  color: var(--accent);
 }
 
 .modal-body {
@@ -300,7 +335,7 @@ a:hover {
 }
 
 .modal-body p {
-  margin-bottom: 1.1em; 
+  margin-bottom: 1.1em;
   hyphens: auto;
   overflow-wrap: break-word;
 }
@@ -312,7 +347,7 @@ a:hover {
 .modal-body h3 {
   margin-top: 20px;
   margin-bottom: 10px;
-  color: #ffffff; /* Accent color for headings */
+  color: #ffffff;
 }
 
 .modal-body ul li {
@@ -332,71 +367,118 @@ a:hover {
   margin-top: 20px;
 }
 
-.download-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #ff6f61;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+/* Figures inside modals */
+.chart-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px 0;
 }
 
-.download-button:hover {
-  background-color: #ff4a3d;
+.chart-figure {
+  flex: 1 1 320px;
+  max-width: 480px;
+  margin: 0;
+  text-align: center;
 }
 
+.chart-figure--single {
+  max-width: none;
+  margin: 20px auto;
+}
 
-/* Compact Table Styling */
+.chart-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #fff;
+  border: 3px solid var(--accent);
+  border-radius: 10px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.chart-img--small {
+  aspect-ratio: auto;
+  max-width: 360px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.modal-body figcaption {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 6px;
+}
+
 .styled-table {
-    border-collapse: collapse;
-    margin: 15px 0; /* Reduced margin */
-    font-size: 0.8em; /* Smaller font size */
-    font-family: sans-serif;
-    min-width: 350px; /* Slightly reduced minimum width */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  border-collapse: collapse;
+  margin: 15px 0;
+  font-size: 0.8em;
+  font-family: sans-serif;
+  min-width: 350px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
+  background-color: var(--accent);
+  color: #ffffff;
+  text-align: left;
 }
 
 .styled-table th,
 .styled-table td {
-    padding: 8px 10px; /* Reduced padding */
+  padding: 8px 10px;
 }
 
 .styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
+  font-weight: bold;
+  color: var(--accent);
 }
 
 .styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #333333;
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+  border-bottom: 2px solid var(--accent);
 }
 
-.projects .project-card {
-  position: relative; /* Needed for absolute positioning of flair */
+/* Small screens: keep the name + 3 nav links from overflowing */
+@media (max-width: 600px) {
+  .header-content {
+    padding: 0 14px;
+  }
+  .top-left {
+    font-size: 18px;
+  }
+  .top-right ul {
+    gap: 12px;
+  }
+  .top-right ul li a,
+  header.shrink .top-right ul li a {
+    font-size: 15px;
+  }
+  header.shrink .top-left h2 {
+    font-size: 16px;
+  }
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-.project-flair {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: rgba(25, 179, 148, 0.9); /* Semi-transparent background */
-  color: white;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.17em;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 1;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+  .project-card:hover,
+  .scroll-button:hover {
+    transform: none;
+  }
 }

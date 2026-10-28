@@ -1,76 +1,124 @@
-// Smooth scrolling with custom easing function
-document.querySelector('.scroll-button').addEventListener('click', function (e) {
-  e.preventDefault(); // Prevent default anchor behavior
-  const target = document.querySelector(this.getAttribute('href')); // Get the target element
-  const targetPosition = target.getBoundingClientRect().top + window.pageYOffset; // Calculate target position
-  const startPosition = window.pageYOffset; // Current scroll position
-  const distance = targetPosition - startPosition; // Distance to scroll
-  const duration = 1000; // Duration of the scroll animation in milliseconds
-  let startTime = null;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Easing function for smooth scrolling
-  function easeInOutCubic(t) {
-    return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+// Reduced-motion: stop the looping background video
+const heroVideo = document.querySelector('.header-background video');
+if (heroVideo && prefersReducedMotion.matches) {
+  heroVideo.removeAttribute('autoplay');
+  heroVideo.pause();
+}
+
+// Smooth scrolling
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+}
+
+function smoothScrollTo(target, duration = 1000) {
+  const startPosition = window.pageYOffset;
+  const distance = target.getBoundingClientRect().top; // relative to the viewport
+  if (prefersReducedMotion.matches) {
+    window.scrollTo(0, startPosition + distance);
+    return;
   }
-
-  // Animation function
+  let startTime = null;
   function animation(currentTime) {
     if (startTime === null) startTime = currentTime;
-    const timeElapsed = currentTime - startTime;
-    const run = easeInOutCubic(Math.min(timeElapsed / duration, 1)); // Apply easing function
-    window.scrollTo(0, startPosition + distance * run); // Scroll to the calculated position
-
-    if (timeElapsed < duration) {
-      requestAnimationFrame(animation); // Continue animation until duration is reached
-    }
+    const progress = Math.min((currentTime - startTime) / duration, 1);
+    window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
+    if (progress < 1) requestAnimationFrame(animation);
   }
+  requestAnimationFrame(animation);
+}
 
-  requestAnimationFrame(animation); // Start the animation
+// Any link like <a href="#projects"> (the modal "View Details" links use href="#", so skip those)
+document.querySelectorAll('a[href^="#"]:not(.project-link)').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const id = this.getAttribute('href');
+    if (id.length < 2) return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    smoothScrollTo(target);
+  });
 });
 
 // Header shrink effect on scroll
-window.addEventListener('scroll', function () {
-  const header = document.querySelector('header');
-  const scrollPosition = window.scrollY;
+const header = document.querySelector('header');
+function updateHeader() {
+  header.classList.toggle('shrink', window.scrollY > 100);
+}
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
 
-  if (scrollPosition > 100) { // Adjust this value as needed
-    header.classList.add('shrink');
-  } else {
-    header.classList.remove('shrink');
-  }
-});
+// Modals
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+let activeModal = null;
+let lastTrigger = null;
+let closeTimer = null;
 
-document.querySelector('.link').addEventListener('click', function(event) {
-  // Allow the link to work as expected
-});
+function openModal(modal, trigger) {
+  clearTimeout(closeTimer);
+  lastTrigger = trigger || null;
+  activeModal = modal;
+  modal.style.display = 'flex';
+  document.body.classList.add('modal-open'); // locks background scroll
+  setTimeout(() => {
+    modal.classList.add('show');
+    const closeBtn = modal.querySelector('.close');
+    if (closeBtn) closeBtn.focus();
+  }, 10);
+}
 
+function closeModal(modal) {
+  modal.classList.remove('show');
+  closeTimer = setTimeout(() => {
+    modal.style.display = 'none';
+    if (activeModal === modal) {
+      activeModal = null;
+      document.body.classList.remove('modal-open');
+      if (lastTrigger) lastTrigger.focus();
+    }
+  }, 300); // wait for the fade-out transition
+}
 
-// Open modal when "View Details" is clicked
 document.querySelectorAll('.project-link').forEach(link => {
   link.addEventListener('click', function (e) {
     e.preventDefault();
-    const modalId = this.getAttribute('data-modal');
-    const modal = document.getElementById(modalId);
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('show'), 10); // Add show class after display is set
+    const modal = document.getElementById(this.getAttribute('data-modal'));
+    if (modal) openModal(modal, this);
   });
 });
 
-// Close modal when the close button is clicked
-document.querySelectorAll('.close').forEach(closeButton => {
-  closeButton.addEventListener('click', function () {
-    const modal = this.closest('.modal');
-    modal.classList.remove('show');
-    setTimeout(() => (modal.style.display = 'none'), 300); // Wait for transition to finish
-  });
-});
-
-// Close modal when clicking outside of it
 document.querySelectorAll('.modal').forEach(modal => {
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) { // Check if the click is on the modal background
-      modal.classList.remove('show');
-      setTimeout(() => (modal.style.display = 'none'), 300); // Wait for transition to finish
-    }
+  // Close button
+  const closeBtn = modal.querySelector('.close');
+  if (closeBtn) closeBtn.addEventListener('click', () => closeModal(modal));
+
+  // Click on the dark backdrop
+  modal.addEventListener('click', e => {
+    if (e.target === modal) closeModal(modal);
   });
+});
+
+document.addEventListener('keydown', e => {
+  if (!activeModal) return;
+
+  if (e.key === 'Escape') {
+    closeModal(activeModal);
+    return;
+  }
+
+
+  if (e.key === 'Tab') {
+    const items = [...activeModal.querySelectorAll(FOCUSABLE)];
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 });
