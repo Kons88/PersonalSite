@@ -1218,7 +1218,6 @@
 
         <h3>2.2 Bayesian Multinomial Logistic Regression</h3>
         <p>Given the categorical nature of the response variable, we employ a Multinomial Logistic Regression model. Bayesian inference is implemented to account for uncertainty in parameter estimation. We use low-information priors on regression coefficients and apply variable selection methods such as the Bayesian Information Criterion (BIC), empirical Bayes, and hyper-g priors.</p>
-        <br>
 
         <h3>2.3 Model Specification</h3>
         <p>The model assumes that the probability of a wine receiving a particular score follows a multinomial (categorical) distribution:</p>
@@ -1233,8 +1232,6 @@
         <p>Under the g-prior, this yields a closed-form analytical solution:</p>
         $$ p(y|\gamma) \varpropto (1+g)^{\frac{p_\gamma}{2}}[1+\frac{g}{1+g}\cdot SSR_\gamma]^{-\frac{n}{2}} $$
         <p>where \(SSR_\gamma\)​ is the sum of squared residuals for model \(\gamma\).</p>
-        <br>
-
 
         <h3>2.3.1 Coefficient-Level Priors</h3>
         <p><u><i>a. Low-Information Priors (Baseline Model):</i></u><p>
@@ -1257,7 +1254,6 @@
         <p>The BIC-approximated prior imposes a "unit information" penalty:</p>
         $$ p(\beta_{jk}) \varpropto exp(-\frac{1}{2}BIC), \qquad where \; BIC = -2 \cdot ln\mathcal{L}+p \cdot ln(n), $$
         <p>effectively approximating a Gaussian prior with variance \(n^{-1}\).</p>
-        <br>
 
         <h3>2.3.2 Model-Space Priors</h3>
         <p><u><i>a. Uniform Prior:</i></u><p>
@@ -1269,13 +1265,12 @@
         $$ \pi \sim Beta(1,b), \gamma_i \sim Bernoulli(\pi) $$
         <p>where \(\beta = \frac{a}{2}-1=0.5\) (with \(a=3\)). Marginalizing over \(\pi\), the prior probability of a model with \(p_\gamma\)​ predictors is:</p>
         $$ p(\gamma) \varpropto \frac{\Gamma(1+p_\gamma)\Gamma(0.5+m-p_\gamma)}{\Gamma(1.5+m)}, \qquad (for \; m=11 \; predictions) $$
-        <br>
 
         <h3>2.4 Model Comparison via DIC</h3>
         <p>The Deviance Information Criterion (DIC) is defined as:</p>
         $$ DIC=\underbrace{−2 \cdot ln⁡p(y∣\hat{\beta})}_{\text{Deviance}} + \underbrace{2p_D}_{Penalty} $$
         <p>where \(p_D=E[−2 \cdot ln⁡p(y∣\beta)]−(−2 \cdot ln⁡p(y∣\hat{\beta}))\) estimates effective parameters. The results of prior comparisons were:</p>
-        <br />
+
         <table class="styled-table" style = "margin:auto">
             <thead>
                 <tr>
@@ -1318,9 +1313,9 @@
             <li>High levels of volatile acidity and chlorides are detrimental to wine scores.</li>
             <li>pH and density should be carefully managed to balance the sensory profile of the wine.</li>
         </ul>
-        <br />
+		
         <h2>4. Conclusion</h2>
-        <p>Our Bayesian approach identifies critical physiochemical characteristics that influence the quality of red "Vinho Verde" wines. These insights offer practical implications for winemakers seeking to refine production processes. Future research may incorporate additional sensory attributes and advanced machine learning techniques to further enhance predictive accuracy.</p>
+        <p>Our Bayesian approach identifies critical physiochemical characteristics that influence the quality of red Vinho Verde wines. These insights offer practical implications for winemakers seeking to refine production processes. Future research could include additional sensory attributes and advanced machine learning techniques to further enhance predictive accuracy.</p>
         <br />
         <h2>References</h2>
         <p>Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). Modeling wine preferences by data mining from physicochemical properties. <em>Decision Support Systems</em>, 47(4), 547-553. https://doi.org/10.1016/j.dss.2009.05.016</p>
