@@ -392,11 +392,11 @@
         <p>where \(S_j\)​ are the subsets formed after a split.</p>
         <p><i><u>Bootstrap Aggregation (Bagging):</u></i></p>
         <p>Each tree is trained on a different bootstrap sample (random sampling with replacement) from the training data. Given \(N\) training samples, each tree is trained on approximately 63.2% of the data (since the probability of a sample not being selected is \((1−\frac{1}{N})^N \approx e^{−1} \approx 36.8%\)).</p>
-        <p>The advantage of bagging is that it reduces variance by averaging multiple weak learners.</p>
+        <p>The advantage of bagging is that it reduces variance by averaging multiple "weak learners".</p>
         <p><i><u>Feature Randomness (Feature Selection per Split):</u></i></p>
-        <p>Instead of using all features at each split (as in traditional decision trees), Random Forest selects a random subset of mm features from the total \(M\) features (\(m < M\)). This ensures diversity among trees and reduces correlation between them.</p>
-        <p>The optimal \(m\) is often set as \(m = \sqrt{M}\) for classification problems, or \(m = M/3\) for regression problems.</p>
-        <p><i><u>Final Prediction (Voting Mechanism):</u></i></p>
+        <p>Instead of using all features at each split (as in traditional decision trees), Random Forest selects a random subset of (\m\) features from the total \(M\) features (\(m < M\)). This ensures diversity among trees and reduces correlation between them.</p>
+        <p>The optimal \(m\) is set as \(m = \sqrt{M}\) for classification problems, or \(m = M/3\) for regression problems.</p>
+        <p><i><u>Voting Mechanism:</u></i></p>
         <p>For classification tasks, each tree provides a class prediction, and the final output is determined by <strong>majority voting</strong>:</p>
         $$ \hat{y} = \arg \max_{k} \sum_{j=1}^{T}1(h_j(x)=k) $$
         <p>where:</p>
@@ -408,25 +408,25 @@
         <p>For regression tasks, the final output is the average of all tree predictions:</p>
         $$ \hat{y} = \frac{1}{T} \sum_{j=1}^{T}h_j(x) $$
         <p><i><u>Bias-Variance Tradeoff in Random Forest:</u></i></p>
-        <p>Random Forest reduces variance compared to individual decision trees while maintaining low bias. This is because bagging reduces variance by averaging out noise and random feature selection prevents trees from being too similar. However, using too many trees increases computational cost, while too few trees can lead to underfitting.</p>
+        <p>Bagging reduces variance by averaging out noise and random feature selection prevents trees from being too similar. However, using too many trees increases computational cost, while too few trees can lead to underfitting.</p>
 
         <h2>4. F1 Score: A Statistical Measure of Classification Performance</h2>
-        <p>The F1 score is a harmonic mean of precision and recall, widely used to evaluate binary classification models, particularly in imbalanced datasets where one class dominates. It balances the trade-off between precision (accuracy of positive predictions) and recall (completeness of positive identifications).</p>
+        <p>The F1 score is a harmonic mean of precision and recall, widely used to evaluate binary classification models, particularly in imbalanced datasets where one class dominates. It balances the trade-off between precision (accuracy classifying disaster tweets) and recall ( out of all, how many disaster tweets did the model actually find).</p>
         <p><i><u>Precision (P):</u></i></p>
-        <p>Precision measures how many of the predicted positive instances are actually correct:</p>
+        <p>Precision measures how many of the classified positive instances are actually correct:</p>
         $$ P = \frac{TP}{TP+FP} $$
         <p>where:</p>
         <ul>
-           <li>True Positives (\(TP\)) are the correctly predicted positive samples,</li>
-           <li>False Positives (\(FP\)) are the incorrectly predicted positive samples.</li>
+           <li>True Positives (\(TP\)) are the correctly classified positive samples,</li>
+           <li>False Positives (\(FP\)) are the incorrectly classified positive samples.</li>
         </ul>
         <p>Thus, it is reasonable that fewer False Positives (\(FP\)) lead to a higher Precision (\(P\)).</p>
         <p><i><u>Recall (R):</u></i></p>
         <p>Recall (also known as Sensitivity or True Positive Rate) measures how many actual positive instances were correctly identified:</p>
         $$ R = \frac{TP}{TP+FN} $$
-        <p>where False Negatives (\(FN\)) are the positive samples, which were incorrectly predicted as negative. Therefore, fewer False Negatives (\(FN\)) lead to higher Recall (\(R\)).</p>
+        <p>where False Negatives (\(FN\)) are the positive samples, which were incorrectly classified as negative. Therefore, fewer False Negatives (\(FN\)) lead to higher Recall (\(R\)).</p>
         <p><i><u>F1-Score:</u></i></p>
-        <p>The F1 score provides a single metric to evaluate classifiers in scenarios where both false positives and false negatives carry consequences. Its harmonic mean formulation ensures neither precision nor recall dominates, making it indispensable in imbalanced or high-stakes domains like healthcare, fraud detection, and NLP. It is the harmonic mean of precision and recall:</p>
+        <p>The F1 score provides a single metric to evaluate classifiers in scenarios where both false positives and false negatives carry consequences. Its harmonic mean formulation ensures neither precision nor recall dominates. This is its formula: </p>
         $$ F1 = 2 × \frac{P×R}{P+R} $$
         <p>The harmonic mean ensures that both precision and recall contribute equally to the score. Unlike the arithmetic mean, the harmonic mean penalizes extreme values, meaning a low precision or recall will significantly reduce the F1-Score. F1 is ideal when class distribution is skewed. For instance, in fraud detection (99% non-fraudulent transactions), accuracy alone may mislead (e.g., 99% accuracy by always predicting "non-fraud"). F1 prioritizes balancing precision and recall.</p>
         <p><i><u>Interpretation and Properties:</u></i></p>
@@ -448,7 +448,7 @@
                      style="width: 200; height: 200; display: block; border: 3px solid #ff6f61; border-radius: 10px; margin: 10px auto;">
             </div>
         </div>
-        <p>It appears that the most frequent words get re-used in both sets of data. Many people must be linking websites or videos to their tweets (and thus, "https" is the top result in the word-clouds) sharing either their opinions, or real disasters. The word cloud that depicts disasters, seems to include names for those disasters, like FIRE, or STORM, etc. used more frequently. And also on a first glance, it uses more "negative" words, like KILLED, or CRASH as well as others.</p>
+        <p>It appears that the most frequent words get re-used in both sets of data. Many people must be linking websites or videos to their tweets (and thus, "https" is the top result in the word-clouds) sharing either their opinions, or real disasters. The word cloud that depicts disasters, seems to include names for those disasters, like FIRE, or STORM, etc. used more frequently. And also on a first glance, it uses more negative words, like "KILLED", or "CRASH" as well as others.</p>
         <p>The evaluation of our results yielded the following:</p>
         <table class="styled-table" style = "margin:auto">
             <thead>
@@ -475,7 +475,7 @@
             </tbody>
         </table>
         <br>
-        <p>The model achieved a validation accuracy of 77.68%, indicating solid overall performance in classifying disaster tweets. However, a deeper look at precision, recall, and F1-Score provides a more nuanced understanding.</p>
+        <p>The model achieved a validation accuracy of 77.68%, indicating solid overall performance in classifying disaster tweets.</p>
         <p>In general, the model performs better at identifying non-disaster tweets (Class 0), with a high recall (0.90), meaning it correctly captures most of them. However, for disaster tweets (Class 1), recall is lower (0.61), meaning many real disaster tweets are misclassified as non-disasters. This is a concern in critical applications where false negatives (missed disasters) are costly.</p>
 
         <h2>6. Conclusion</h2>
