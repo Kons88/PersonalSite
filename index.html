@@ -1230,7 +1230,7 @@
         <p><u><i>Marginal Likelihood Computation:</i></u></p>
         <p>For a model \(\gamma\), the marginal likelihood integrates out \(\beta\):</p>
         $$ p(y|\gamma) = \int p(y|\beta, \gamma) \cdot p(\beta|gamma)d\beta  $$
-        <p>Under the g-prior, this is analytically tractable:</p>
+        <p>Under the g-prior, this yields a closed-form analytical solution:</p>
         $$ p(y|\gamma) \varpropto (1+g)^{\frac{p_\gamma}{2}}[1+\frac{g}{1+g}\cdot SSR_\gamma]^{-\frac{n}{2}} $$
         <p>where \(SSR_\gamma\)​ is the sum of squared residuals for model \(\gamma\).</p>
         <br>
