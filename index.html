@@ -394,7 +394,7 @@
         <p>Each tree is trained on a different bootstrap sample (random sampling with replacement) from the training data. Given \(N\) training samples, each tree is trained on approximately 63.2% of the data (since the probability of a sample not being selected is \((1−\frac{1}{N})^N \approx e^{−1} \approx 36.8%\)).</p>
         <p>The advantage of bagging is that it reduces variance by averaging multiple "weak learners".</p>
         <p><i><u>Feature Randomness (Feature Selection per Split):</u></i></p>
-        <p>Instead of using all features at each split (as in traditional decision trees), Random Forest selects a random subset of (\m\) features from the total \(M\) features (\(m < M\)). This ensures diversity among trees and reduces correlation between them.</p>
+        <p>Instead of using all features at each split (as in traditional decision trees), Random Forest selects a random subset of \(m\) features from the total \(M\) features (\(m < M\)). This ensures diversity among trees and reduces correlation between them.</p>
         <p>The optimal \(m\) is set as \(m = \sqrt{M}\) for classification problems, or \(m = M/3\) for regression problems.</p>
         <p><i><u>Voting Mechanism:</u></i></p>
         <p>For classification tasks, each tree provides a class prediction, and the final output is determined by <strong>majority voting</strong>:</p>
