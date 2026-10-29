@@ -1193,14 +1193,156 @@
            <figcaption>Word cloud of statistical tools (the bigger the word, the more mentions).</figcaption>
          </figure>
 
-       <p><u><i>Some words about the graphs above:</i></u></p>
-       <p> Within our search, Python appears to be the most popular tool in 2026 (87% of ads, up from 74% in 2022). SQL (63% → 46%) and R (39% → 26%) have declined in relative terms but remain the second and third most-mentioned statistical tools. AWS and Azure have both increased in mentions within job ads, while legacy tools such as Qlik, Scala and Hive seem much closer to zero. It is surprising that some tools get zero mentions, however let us not forget that this is only a part of the internet within a part of the world and so it could be that they are used in academia or other job sites (though low mentions meant that they're not as popular as others).</p>
+         <p><u><i>Some words about the graphs above:</i></u></p>
+         <p> Within our search, Python appears to be the most popular tool in 2026 (87% of ads, up from 74% in 2022). SQL (63% → 46%) and R (39% → 26%) have declined in relative terms but remain the second and third most-mentioned statistical tools. AWS and Azure have both increased in mentions within job ads, while legacy tools such as Qlik, Scala and Hive seem much closer to zero. It is surprising that some tools get zero mentions, however let us not forget that this is only a part of the internet within a part of the world and so it could be that they are used in academia or other job sites (though low mentions meant that they're not as popular as others).</p>
 
-       <div class="modal-footer">
-          <a href="web_scraping.zip" download class="download-button">Download Code</a>
+         <div class="modal-footer">
+            <a href="web_scraping.zip" download class="download-button">Download Code</a>
+         </div>
        </div>
      </div>
-   </div>
+    </div>
+
+    <div id="modal6" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal1-title">
+    <div class="modal-content">
+      <button type="button" class="close" aria-label="Close">&times;</button>
+      <h2 class="modal-title" id="modal1-title">Choosing the Best Physicochemical Properties in a Strain of Red Wine</h2>
+      <div class="modal-body">
+        <br />
+        <hr />
+        <h2>Abstract</h2>
+        <p>This paper explores the application of Bayesian statistical methods in identifying the most influential physiochemical properties of red "Vinho Verde" wine. Using a dataset comprising 1599 observations and 11 physiochemical characteristics, we employ a multinomial logistic regression model with Bayesian variable selection techniques to determine the optimal combination of properties that contribute to higher wine quality scores. The results reveal that alcohol content, sulphates, and free sulfur dioxide have a significant positive impact on wine quality, whereas volatile acidity, chlorides, and total sulfur dioxide are negatively correlated with quality.</p>
+        <hr />
+        <br />
+
+        <h2>1. Introduction</h2>
+        <p>The wine industry has long been driven by subjective evaluations of quality, yet statistical methods can provide objective insights into the factors that influence taste and consumer preference. "Vinho Verde," a traditional wine from northwestern Portugal, is produced in various red and white strains, with some being more commercially successful than others. This study aims to determine the key physiochemical properties that contribute to higher-rated red "Vinho Verde" wines and use this knowledge to optimize wine production.</p>
+        <br>
+
+        <h2>2. Data and Methods</h2>
+
+        <h3>2.1 Data Description</h3>
+        <p>The dataset used in this analysis consists of 1599 samples of red "Vinho Verde" wine. The first 11 variables represent objective physiochemical properties, including acidity, residual sugar, sulfur dioxide content, and alcohol percentage. The 12th variable is a sensory rating provided by wine experts, ranging from 3 to 8.</p>
+
+        <h3>2.2 Bayesian Multinomial Logistic Regression</h3>
+        <p>Given the categorical nature of the response variable, we employ a multinomial logistic regression model. Bayesian inference is implemented to account for uncertainty in parameter estimation. We use low-information priors on regression coefficients and apply variable selection methods such as the Bayesian Information Criterion (BIC), empirical Bayes, and hyper-g priors.</p>
+        <br>
+
+        <h3>2.3 Model Specification</h3>
+        <p>The model assumes that the probability of a wine receiving a particular score follows a multinomial (categorical) distribution:</p>
+        $$ y_i \sim Multinomal(p_{i,x}) $$
+        <p>for \(i=1599\), our number of observations and \(x=1:6\), the different categories scores (3-8). In this model, our reference category will be 6, which was altered in R to be the most frequent category (the one that had the most observations). Thus, for observation \(i\), the probability \(p_{ik}\)​ of belonging to category \(k\) (vs. reference \(K=6\)) is:
+        $$ ln(\frac{p_{ik}}{p_{iK}}) = \beta_{k0} + \sum_{j=1}^{11}\beta_{kj} \cdot Z_{ij}, \qquad k=1,...,5, $$</p>
+
+        <p>where \(Z_{ij}\) are standardized predictors. BAS iteratively samples models from the posterior \(p(\gamma∣y)\), prioritizing those with high marginal likelihoods.</p>
+        <p><u><i>Marginal Likelihood Computation:</i></u></p>
+        <p>For a model \(\gamma\), the marginal likelihood integrates out \(\beta\):</p>
+        $$ p(y|\gamma) = \int p(y|\beta, \gamma) \cdot p(\beta|gamma)d\beta  $$
+        <p>Under the g-prior, this is analytically tractable:</p>
+        $$ p(y|\gamma) \varpropto (1+g)^{\frac{p_\gamma}{2}}[1+\frac{g}{1+g}\cdot SSR_\gamma]^{-\frac{n}{2}} $$
+        <p>where \(SSR_\gamma\)​ is the sum of squared residuals for model \(\gamma\).</p>
+        <br>
+
+
+        <h3>2.3.1 Coefficient-Level Priors</h3>
+        <p><u><i>a. Low-Information Priors (Baseline Model):</i></u><p>
+        <p>For initial exploration, weakly informative Gaussian priors were assigned:</p>
+        $$ \beta_{kj} \sim \mathcal{N}(0, \sigma^2 = 10^4) $$
+        <p>where \(\sigma^2 = 10^4\) reflects minimal prior knowledge, allowing the likelihood to dominate posterior inference. These priors are mathematically convenient but risk overfitting in high-dimensional settings.</p>
+
+        <p><u><i>b. Zellner’s g-Prior:</i></u><p>
+        <p>For structured shrinkage, Zellner’s g-prior was applied:</p>
+        $$ \beta_{kj}|g \sim \mathcal{N}(0, g \cdot (X^TX)^{-1} \cdot \sigma^2), $$
+        <p>where \(g>0\) controls shrinkage strength. This prior scales coefficients by the Fisher information matrix \((X^TX)^{-1}\).</p>
+
+        <p><u><i>c. Hyper-g Prior (Liang et al., 2008):</i></u><p>
+        <p>To address \(g\) sensitivity, the hyper-g prior treats \(g\) as random with a Beta prime hyperprior:</p>
+        $$ \frac{g}{1+g} \sim Beta(1, \frac{a}{2}-1), \qquad where \; a=3 \; (default). $$
+        <p>Rewriting \(g=\frac{w}{1-w}\)​ with \(w \sim Beta(1,b)\), this induces a heavy-tailed prior on \(\beta_{jk}\)​:</p>
+        $$ \beta_{jk} \sim \mathcal{N}(0, \frac{w}{1-w} \cdot (X^TX)^{-1} \cdot \sigma^2). $$
+
+        <p><u><i>d. BIC Approximation:</i></u><p>
+        <p>The BIC-approximated prior imposes a "unit information" penalty:</p>
+        $$ p(\beta_{jk}) \varpropto exp(-\frac{1}{2}BIC), \qquad where \; BIC = -2 \cdot ln\mathcal{L}+p \cdot ln(n), $$
+        <p>effectively approximating a Gaussian prior with variance \(n^{-1}\).</p>
+        <br>
+
+        <h3>2.3.2 Model-Space Priors</h3>
+        <p><u><i>a. Uniform Prior:</i></u><p>
+        <p>Here the main assumption is that all models \(\gamma\) (where \(\gamma_j=1\) if predictor \(j\) is included) are equally likely:</p>
+        $$ p(\gamma) = \frac{1}{2^m} \qquad (for \; m=11 \; predictions) $$
+
+        <p><u><i>b. Beta-Binomial Prior:</i></u></p>
+        <p>A beta-binomial prior introduces sparsity by penalizing model size:</p>
+        $$ \pi \sim Beta(1,b), \gamma_i \sim Bernoulli(\pi) $$
+        <p>where \(\beta = \frac{a}{2}-1=0.5\) (with \(a=3\)). Marginalizing over \(\pi\), the prior probability of a model with \(p_\gamma\)​ predictors is:</p>
+        $$ p(\gamma) \varpropto \frac{\Gamma(1+p_\gamma)\Gamma(0.5+m-p_\gamma)}{\Gamma(1.5+m)}, \qquad (for \; m=11 \; predictions) $$
+        <br>
+
+        <h3>2.4 Model Comparison via DIC</h3>
+        <p>The Deviance Information Criterion (DIC) is defined as:</p>
+        $$ DIC=\underbrace{−2 \cdot ln⁡p(y∣\hat{\beta})}_{\text{Deviance}} + \underbrace{2p_D}_{Penalty} $$
+        <p>where \(p_D=E[−2 \cdot ln⁡p(y∣\beta)]−(−2 \cdot ln⁡p(y∣\hat{\beta}))\) estimates effective parameters. The results of prior comparisons were:</p>
+        <br />
+        <table class="styled-table" style = "margin:auto">
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Key Behaviour</th>
+                    <th>DIC Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Original Model (Low-Info)</td>
+                    <td>Overfit, high \(p_D\)​ due to unpenalized complexity</td>
+                    <td style = "text-align: right;">3036.0</td>
+                </tr>
+                <tr>
+                    <td>Reduced Model (BIC with Beta-Binomials)</td>
+                    <td>Excessively sparse, poor fit</td>
+                    <td style = "text-align: right;">3063.0</td>
+                </tr>
+                <tr>
+                    <td>Reduced Model (g-prior with Beta-Binomials)</td>
+                    <td>Rigid shrinkage, misses weak signals</td>
+                    <td style = "text-align: right;">3058.0</td>
+                </tr>
+                <tr class="active-row">
+                    <td>Reduced Model (Hyper-g with Beta-Binomials)</td>
+                    <td>Adaptive shrinkage, optimal fit-parsimony balance</td>
+                    <td style = "text-align: right;">3017.0</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <p>The problem with the reduced models which used BIC prior and g-prior on the betas is that they were too strict with the selection of the statistically significant coefficients up to the point where their final models did not represent the data as well as they should and thus, had much higher DIC values than the original model.</p>
+        <br />
+        <h2>3. Discussing the Results</h2>
+        <p>The selected variables and their exponentiated coefficients suggest the following key findings:</p>
+        <ul>
+            <li>Alcohol content significantly increases the probability of higher quality ratings.</li>
+            <li>Sulphates and free sulfur dioxide contribute positively to wine quality when maintained at optimal levels.</li>
+            <li>High levels of volatile acidity and chlorides are detrimental to wine scores.</li>
+            <li>pH and density should be carefully managed to balance the sensory profile of the wine.</li>
+        </ul>
+        <br />
+        <h2>4. Conclusion</h2>
+        <p>Our Bayesian approach identifies critical physiochemical characteristics that influence the quality of red "Vinho Verde" wines. These insights offer practical implications for winemakers seeking to refine production processes. Future research may incorporate additional sensory attributes and advanced machine learning techniques to further enhance predictive accuracy.</p>
+        <br />
+        <h2>References</h2>
+        <p>Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). Modeling wine preferences by data mining from physicochemical properties. <em>Decision Support Systems</em>, 47(4), 547-553. https://doi.org/10.1016/j.dss.2009.05.016</p>
+        <p>Liang, F., et al. (2008). <em>Mixtures of g-priors for Bayesian variable selection</em>. JASA.</p>
+        <p>Zellner, A. (1986). <em>On assessing prior distributions and Bayesian regression analysis with g-prior distributions</em>. Bayesian Inference and Decision Techniques.</p>
+        <p>Ntzoufras, I. 2009. <em>Bayesian Modelling Using WinBUGS</em>. Wiley.</p>
+        <p>Agresti, A. (2019). <em>An introduction to categorical data analysis</em> (3rd ed.). Wiley-Interscience.</p>
+        <p>Korner-Nievergelt, F., Roth, T., Felten, S., Guélat, J., Almasi, B., & Korner-Nievergelt, P. (2015). <em>Bayesian data analysis in ecology using linear models with R, BUGS, and Stan</em>. Academic Press.</p>
+        <p>Best, N., Spiegelhalter, D., Thomas, A., & Lunn, D. (2012). <em>The BUGS book: A practical introduction to Bayesian analysis</em>. CRC Press.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="wine_project_code.zip" download class="download-button">Download Code</a>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
