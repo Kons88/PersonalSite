@@ -328,20 +328,18 @@
       <button type="button" class="close" aria-label="Close">&times;</button>
       <h2 class="modal-title" id="modal3-title">Predicting Disaster Tweets</h2>
       <div class="modal-body">
-        <br />
-        <hr />
-        <h2>Abstract</h2>
+        <hr style="margin-bottom: 0.5em;" />
+		<h2 style="margin-top: 0.5em;">Abstract</h2>
         <p>Natural Language Processing (NLP) leverages statistical methodologies to enable machines to understand, generate, and manipulate human language. The study pairs an NLP approach called TF-IDF with Random Forest Classification, and afterwards, evaluates their efficacy in tweet classification.</p>
         <hr />
-        <br>
+        <hr />
 
         <h2>1. Introduction</h2>
         <p>Twitter is a social media platform where users share real-time updates, ideas, and interactions through short messages called tweets. These tweets, limited to 280 characters, can include hashtags, media, and direct engagement features like replies and retweets, enabling global conversations on diverse topics. The disaster tweets dataset on Kaggle focuses on leveraging this real-time data for natural language processing (NLP) and machine learning (ML) tasks. Its goal is to classify tweets as either referencing real disasters (e.g., earthquakes, fires) or non-disaster content, aiming to build accurate models that assist crisis response teams in identifying emergencies swiftly. By distinguishing actionable disaster-related tweets from casual mentions, this dataset supports improved situational awareness and disaster management efforts.</p>
-        <br>
 
         <h2>2. Term Frequency-Inverse Document Frequency (TF-IDF)</h2>
         <p>Term Frequency-Inverse Document Frequency (TF-IDF) is a numerical statistic that evaluates the importance of a word in a document relative to a collection (corpus). It helps distinguish words that are informative for a document while reducing the weight of common words that appear frequently across all documents.</p>
-        <br />
+
         <p><i><u>a. Term Frequency (TF):</u></i></p>
         <p>Term Frequency (TF) measures how often a term appears in a document. It is calculated as:</p>
         $$ TF(t,d) = \frac{f_{t,d}}{N_d} $$
@@ -366,7 +364,6 @@
         <p>TF-IDF is obtained by multiplying the term frequency and inverse document frequency:</p>
         $$ \text{TF-IDF}(t,d)=TF(t,d)×IDF(t) $$
         <p>This weighting scheme increases the importance of words that are frequent in a specific document but rare across the entire corpus. Words that appear in nearly all documents (e.g., "the," "is") have an IDF close to zero, reducing their impact.</p>
-        <br>
 
         <h2>3. Random Forest Classification</h2>
         <p>Random Forest is an ensemble learning method that combines multiple decision trees to improve classification accuracy and reduce overfitting. It operates by constructing multiple decision trees during training and outputting the class that is the mode of individual trees’ predictions.</p>
@@ -412,7 +409,6 @@
         $$ \hat{y} = \frac{1}{T} \sum_{j=1}^{T}h_j(x) $$
         <p><i><u>Bias-Variance Tradeoff in Random Forest:</u></i></p>
         <p>Random Forest reduces variance compared to individual decision trees while maintaining low bias. This is because bagging reduces variance by averaging out noise and random feature selection prevents trees from being too similar. However, using too many trees increases computational cost, while too few trees can lead to underfitting.</p>
-        <br>
 
         <h2>4. F1 Score: A Statistical Measure of Classification Performance</h2>
         <p>The F1 score is a harmonic mean of precision and recall, widely used to evaluate binary classification models, particularly in imbalanced datasets where one class dominates. It balances the trade-off between precision (accuracy of positive predictions) and recall (completeness of positive identifications).</p>
@@ -439,7 +435,6 @@
            <li>Worst Case: \(F1=0\) when either \(P=0\) or \(R=0\) (completely incorrect classification).</li>
            <li>Balanced Contribution: If precision is high but recall is low (or vice versa), the F1-score provides a balanced view rather than favoring one over the other.</li>
         </ul>
-        <br>
 
         <h2>5. Results</h2>
         <p>From the very beginning it was apparent that a clear distinction between disaster-related tweets and ordinary social media posts could probably be achieved. This is something that is corroborated by the word-clouds below:</p>
@@ -482,7 +477,6 @@
         <br>
         <p>The model achieved a validation accuracy of 77.68%, indicating solid overall performance in classifying disaster tweets. However, a deeper look at precision, recall, and F1-Score provides a more nuanced understanding.</p>
         <p>In general, the model performs better at identifying non-disaster tweets (Class 0), with a high recall (0.90), meaning it correctly captures most of them. However, for disaster tweets (Class 1), recall is lower (0.61), meaning many real disaster tweets are misclassified as non-disasters. This is a concern in critical applications where false negatives (missed disasters) are costly.</p>
-        <br>
 
         <h2>6. Conclusion</h2>
         <p>This study applied Natural Language Processing (NLP) techniques, specifically TF-IDF for feature extraction and a Random Forest classifier, to classify disaster-related tweets. The model achieved a validation accuracy of 77.68%, with strong precision for disaster tweets (0.82) but lower recall (0.61), indicating that while false positives were minimized, some disaster-related tweets were misclassified.</p>
