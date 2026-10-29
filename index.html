@@ -335,41 +335,41 @@
         <hr />
 
         <h2>1. Introduction</h2>
-        <p>Twitter is a social media platform where users share ideas and interactions through short, 280-word messages called tweets. The goal of the disaster tweets dataset (taken from Kaggle) is to classify tweets who are either referencing real disasters (e.g., earthquakes, fires, etc.) or non-disaster content (e.g., "oh no... my dinner disaster", etc.), in order to build models which identify such emergencies swiftly only by refecrencing real-time updates.</p>
+        <p>Twitter is a social media platform where users share ideas and interactions through short, 280-word messages called tweets. The goal of the disaster tweets dataset (taken from Kaggle) is to classify tweets who are either referencing real disasters (e.g., earthquakes, fires, etc.) or non-disaster content (e.g., "oh no... my dinner disaster", etc.), in order to build models which swiftly identify such emergencies only by refecrencing real-time Twitter updates.</p>
 
         <h2>2. Term Frequency-Inverse Document Frequency (TF-IDF)</h2>
-        <p>Term Frequency-Inverse Document Frequency (TF-IDF) is a numerical statistic that evaluates the importance of a word in a document relative to a collection (corpus). It helps distinguish words that are informative for a document while reducing the weight of common words that appear frequently across all documents.</p>
+        <p>Term Frequency-Inverse Document Frequency (TF-IDF) is a numerical statistic that evaluates the importance of a word in a document. It helps distinguish words that are informative for a document while reducing the weight of other common words (such as "a", "the", etc.) which appear frequently in documents as well as our every day language.</p>
 
         <p><i><u>a. Term Frequency (TF):</u></i></p>
         <p>Term Frequency (TF) measures how often a term appears in a document. It is calculated as:</p>
         $$ TF(t,d) = \frac{f_{t,d}}{N_d} $$
         <p>where:</p>
         <ul>
-            <li>\(f_{t,d}\) is the raw count of term \(t\) in document \(d\),</li>
+            <li>\(f_{t,d}\) is the count of term \(t\) in document \(d\),</li>
             <li>\(N_d\) is the total number of terms in document \(d\).</li>
         </ul>
-        <p>This normalization accounts for document length, ensuring that longer documents don’t automatically have higher term counts.</p>
+        <p>This normalization takes document length into account, thus ensuring that longer documents don’t automatically have higher term counts.</p>
         <br>
         <p><i><u>b. Inverse Document Frequency (IDF):</u></i></p>
         <p>Inverse Document Frequency (IDF) measures the importance of a term across a collection of documents. It is defined as:</p>
         $$ IDF(t) = log(\frac{N}{df_t}+1) $$
         <p>where:</p>
         <ul>
-            <li>\(N\) is the total number of documents in the corpus,</li>
+            <li>\(N\) is the total number of documents,</li>
             <li>\(df_t\) is the number of documents containing term \(t\).</li>
         </ul>
-        <p>The logarithm dampens the impact of very frequent words while ensuring rare words have a higher weight.</p>
+        <p>As it was mentioned before, this logarithm lessens the impact of very frequent words while ensuring rare words have a higher weight.</p>
         <br>
         <p><i><u>c. Term Frequency-Inverse Document Frequency (TF-IDF) Calculation:</u></i></p>
         <p>TF-IDF is obtained by multiplying the term frequency and inverse document frequency:</p>
         $$ \text{TF-IDF}(t,d)=TF(t,d)×IDF(t) $$
-        <p>This weighting scheme increases the importance of words that are frequent in a specific document but rare across the entire corpus. Words that appear in nearly all documents (e.g., "the," "is") have an IDF close to zero, reducing their impact.</p>
+        <p>This weighting scheme increases the importance of words that are frequent in a specific document but rare across the entire dataset. Words that appear in nearly all documents (e.g., "the," "is", etc.) have an IDF close to zero, therefore reducing their impact.</p>
 
         <h2>3. Random Forest Classification</h2>
-        <p>Random Forest is an ensemble learning method that combines multiple decision trees to improve classification accuracy and reduce overfitting. It operates by constructing multiple decision trees during training and outputting the class that is the mode of individual trees’ predictions.</p>
+        <p>Random Forest is an machine learning method which combines multiple decision trees, aiming to improve classification accuracy and reduce overfitting. During training, it constructs a collection of trees and determines the final output through a majority vote (the mode), which conists of their individual predictions.</p>
         <br>
-        <p><i><u>Decision Trees as Base Learners:</u></i></p>
-        <p>Each tree in a Random Forest is a Decision Tree, which recursively splits the dataset based on feature values to minimize a chosen impurity measure, such as Gini Impurity or Entropy.</p>
+        <p><i><u>Decision Trees:</u></i></p>
+        <p>Each tree in a Random Forest is called (and is) a Decision Tree, which recursively splits the dataset based on feature values that minimize a chosen impurity measure, such as Gini Impurity or Entropy.</p>
         <p><i><u>a. Gini Impurity</u></i></p>
         <p>The Gini impurity measures how often a randomly chosen element from a set would be incorrectly classified if randomly labeled according to class distributions. This was the impurity measure chosen for our results, simply becaue it produced better results than an Entropy impurity measure. Its formula is:</p>
         $$ G = 1 - \sum_{i=1}^{C}p_i^2 $$
@@ -378,7 +378,7 @@
             <li>\(C\) is the total number of classes,</li>
             <li>\(p_i\) is the proportion of instances belonging to class \(i\) at a node.</li>
         </ul>
-        <p>A lower Gini impurity indicates a purer node.</p>
+        <p>A lower Gini impurity indicates a purer node, thus cleaner splits between categories and higher certainty in our split.</p>
         <p><i><u>b. Entropy (Information Gain)</u></i></p>
         <p>Entropy quantifies the disorder (uncertainty) in the dataset:</p>
         $$ H(S) = -\sum_{i=1}^{C}p_i \cdot log_2(p_i) $$
